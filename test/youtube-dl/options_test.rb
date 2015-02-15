@@ -46,4 +46,13 @@ describe YoutubeDL::Options do
       assert @options.store.keys.include?(d), "keys not symbolizing automatically: #{d}"
     end
   end
+
+  it 'should properly paramize keys' do
+    @options.some_key = "some value"
+
+    @options.each_paramized do |key, value|
+      refute key.include?('_')
+      assert_equal value, 'some value'
+    end
+  end
 end

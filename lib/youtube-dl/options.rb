@@ -6,6 +6,12 @@ module YoutubeDL
       @store = {}
     end
 
+    def each_paramized
+      @store.each do |key, value|
+        yield(paramize(key), value)
+      end
+    end
+
     def configure(&block)
       block.call(self)
     end
@@ -34,6 +40,11 @@ module YoutubeDL
           @store.delete(key_name)
         end
       end
+    end
+
+    private
+    def paramize(key)
+      key.to_s.tr("_", '-')
     end
   end
 end
