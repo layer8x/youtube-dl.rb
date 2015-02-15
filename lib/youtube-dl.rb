@@ -1,7 +1,7 @@
 require "youtube-dl/version"
 
 module YoutubeDL
-  def test
+  def self.test
     'test'
   end
 end

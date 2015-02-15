@@ -1,11 +1,7 @@
-require 'test_helper'
+require_relative '../test_helper'
 
 describe YoutubeDL do
-  before do
-    @dl = YoutubeDL.new
-  end
-
   it 'does some stuff' do
-    assert_equal @dl.test, "test"
+    assert_equal YoutubeDL.test, "test"
   end
 end
