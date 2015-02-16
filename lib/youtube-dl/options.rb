@@ -12,6 +12,12 @@ module YoutubeDL
       end
     end
 
+    def each_paramized_key
+      @store.each_key do |key|
+        yield(key, paramize(key))
+      end
+    end
+
     def configure(&block)
       block.call(self)
     end

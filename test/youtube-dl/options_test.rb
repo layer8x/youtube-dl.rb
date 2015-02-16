@@ -47,12 +47,21 @@ describe YoutubeDL::Options do
     end
   end
 
-  it 'should properly paramize keys' do
+  it 'should properly paramize keys and not values' do
     @options.some_key = "some value"
 
     @options.each_paramized do |key, value|
-      refute key.include?('_')
+      assert_equal key, 'some-key'
       assert_equal value, 'some value'
+    end
+  end
+
+  it 'should make each_paramized_key work' do # TODO: Write a better test name
+    @options.some_key = "some value"
+
+    @options.each_paramized_key do |key, paramized_key|
+      assert_equal :some_key, key
+      assert_equal 'some-key', paramized_key
     end
   end
 end
