@@ -4,7 +4,7 @@ module YoutubeDL
 
     # Options initializer
     #
-    # @param [Hash] a hash of options
+    # @param options [Hash] a hash of options
     def initialize(options={})
       @store = options
     end
@@ -63,7 +63,7 @@ module YoutubeDL
     private
     # Helper function to convert option keys into command-line-friendly parameters
     #
-    # @param [Symbol, String] key to paramize
+    # @param key [Symbol, String] key to paramize
     # @return [String] paramized key
     def paramize(key)
       key.to_s.tr("_", '-')
