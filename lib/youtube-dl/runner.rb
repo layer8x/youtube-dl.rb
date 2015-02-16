@@ -8,7 +8,7 @@ module YoutubeDL
 
     def initialize(url, options=YoutubeDL::Options.new)
       @url = url
-      @options = options
+      @options = YoutubeDL::Options.new(options.to_hash)
       @executable_path = 'youtube-dl'
     end
 

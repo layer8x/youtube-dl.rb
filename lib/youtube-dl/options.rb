@@ -6,6 +6,11 @@ module YoutubeDL
       @store = options
     end
 
+    def to_hash
+      @store
+    end
+    alias_method :to_h, :to_hash
+
     def each_paramized
       @store.each do |key, value|
         yield(paramize(key), value)
