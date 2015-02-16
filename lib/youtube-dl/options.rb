@@ -2,10 +2,16 @@ module YoutubeDL
   class Options
     attr_accessor :store
 
+    # Options initializer
+    #
+    # @param [Hash] a hash of options
     def initialize(options={})
       @store = options
     end
 
+    # Returns options as a hash
+    #
+    # @return [Hash] hash of options
     def to_hash
       @store
     end
@@ -44,6 +50,7 @@ module YoutubeDL
       end
     end
 
+    # Symbolizes keys in the option store
     def symbolize_keys!
       @store.keys.each do |key_name|
         unless key_name.is_a? Symbol
@@ -54,6 +61,10 @@ module YoutubeDL
     end
 
     private
+    # Helper function to convert option keys into command-line-friendly parameters
+    #
+    # @param [Symbol, String] key to paramize
+    # @return [String] paramized key
     def paramize(key)
       key.to_s.tr("_", '-')
     end
