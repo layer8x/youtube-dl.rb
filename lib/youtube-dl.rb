@@ -5,7 +5,6 @@ require 'youtube-dl/runner'
 module YoutubeDL
   extend self
   def download(urls, options={})
-
     urls = [urls] unless urls.is_a? Array
 
     urls.each do |url|
