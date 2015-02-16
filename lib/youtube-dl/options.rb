@@ -2,8 +2,8 @@ module YoutubeDL
   class Options
     attr_accessor :store
 
-    def initialize
-      @store = {}
+    def initialize(options={})
+      @store = options
     end
 
     def each_paramized
