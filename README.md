@@ -1,6 +1,7 @@
 # youtube-dl.rb
 
 Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
+[![Build Status](https://travis-ci.org/layer8x/youtube-dl.rb.svg?branch=master)](https://travis-ci.org/layer8x/youtube-dl.rb)
 
 ## Installing youtube-dl
 This gem does not ship with the `youtube-dl` command-line program (yet!) so you will need to install `youtube-dl` manually.  Luckily there are three ways to do it.
