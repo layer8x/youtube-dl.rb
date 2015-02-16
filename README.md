@@ -1,8 +1,27 @@
 # youtube-dl.rb
 
-TODO: Write a gem description
+Ruby wrapper for youtube-dl
 
-## Installation
+## Installing youtube-dl
+This gem does not ship with youtube-dl built in (yet), so you need to install manually.
+
+### The easy way
+Use your distro's package manager!
+
+    $ apt-get install youtube-dl
+    $ brew install youtube-dl
+
+Or through Pip
+
+    $ pip install youtube-dl
+
+### The slightly harder way
+```bash
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+x /usr/local/bin/youtube-dl
+```
+
+## Install the gem
 
 Add this line to your application's Gemfile:
 
@@ -20,12 +39,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Pretty simple.
+
+```ruby
+YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", output: 'some_file.mp4'
+```
+
+All options available to youtube-dl can be passed to the options hash
+
+```ruby
+options = {
+  username: 'someone',
+  password: 'password1',
+  rate_limit: '50K'
+  format: :worst
+}
+
+YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", options
+```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/youtube-dl.rb/fork )
+1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+4. Pass test suite (`rake test`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create a new Pull Request
