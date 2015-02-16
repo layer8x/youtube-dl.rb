@@ -51,7 +51,7 @@ All options available to youtube-dl can be passed to the options hash
 options = {
   username: 'someone',
   password: 'password1',
-  rate_limit: '50K'
+  rate_limit: '50K',
   format: :worst
 }
 
