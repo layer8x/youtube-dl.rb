@@ -6,9 +6,7 @@ describe YoutubeDL::Runner do
   end
 
   after do
-    if File.exists? 'nope.avi'
-      File.delete 'nope.avi'
-    end
+    remove_downloaded_files
   end
 
   it 'should set cocaine runner' do
@@ -38,7 +36,6 @@ describe YoutubeDL::Runner do
   it 'should run commands' do
     @runner.options.output = 'nope.avi'
     @runner.run
-    binding.pry
     assert File.exists? 'nope.avi'
   end
 end
