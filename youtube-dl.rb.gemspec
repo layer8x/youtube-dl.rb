@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["saps.laj@gmail.com"]
   spec.summary       = %q{youtube-dl wrapper for Ruby}
   spec.description   = %q{in the spirit of pygments.rb and MiniMagick, youtube-dl.rb is a command line wrapper for the python script youtube-dl}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/layer8x/youtube-dl.rb"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
