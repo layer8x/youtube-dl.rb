@@ -38,4 +38,13 @@ describe YoutubeDL::Runner do
     @runner.run
     assert File.exists? 'nope.avi'
   end
+
+  it 'should take options as a hash yet still have configuration blocks work' do
+    r = YoutubeDL::Runner.new(NOPE, {some_key: 'some value'})
+    r.options.configure do |c|
+      c.another_key = 'another_value'
+    end
+
+    assert_includes r.to_command, "--some-key 'some value' --another-key 'another_value'"
+  end
 end
