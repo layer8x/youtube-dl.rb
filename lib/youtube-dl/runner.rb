@@ -23,6 +23,7 @@ module YoutubeDL
     def to_command
       cocaine_line(options_to_commands).command(@options.store)
     end
+    alias_method :command, :to_command
 
     def run
       cocaine_line(options_to_commands).run(@options.store)
