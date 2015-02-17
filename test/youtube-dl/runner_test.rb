@@ -24,7 +24,7 @@ describe YoutubeDL::Runner do
   it 'should parse key-values from options' do
     @runner.options.some_key = "a value"
 
-    assert_includes @runner.to_command, "--some-key 'a value'"
+    refute_nil @runner.to_command.match(/--some-key\s.*a value.*/) 
   end
 
   it 'should not include the value if value is true' do
@@ -45,6 +45,7 @@ describe YoutubeDL::Runner do
       c.another_key = 'another_value'
     end
 
-    assert_includes r.to_command, "--some-key 'some value' --another-key 'another_value'"
+    assert_includes r.to_command, "--some-key"
+    assert_includes r.to_command, "--another-key"
   end
 end
