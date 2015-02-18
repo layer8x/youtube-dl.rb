@@ -4,7 +4,13 @@ require 'youtube-dl/runner'
 
 module YoutubeDL
   extend self
+
+  # Downloads given array of URLs with any options passed
+  #
+  # @param urls [String, Array] URLs to download
+  # @param options [Hash] Downloader options
   def download(urls, options={})
+    # force convert urls to array
     urls = [urls] unless urls.is_a? Array
 
     urls.each do |url|
