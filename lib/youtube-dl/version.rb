@@ -1,3 +1,3 @@
 module YoutubeDL
-  VERSION = "0.0.2pre"
+  VERSION = "0.0.2"
 end
