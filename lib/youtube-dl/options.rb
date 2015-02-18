@@ -29,18 +29,22 @@ module YoutubeDL
       end
     end
 
+    # Set options using a block
     def configure(&block)
       block.call(self)
     end
 
+    # Get option with brackets syntax
     def [](key)
       @store[key.to_sym]
     end
 
+    # Set option with brackets syntax
     def []=(key, value)
       @store[key.to_sym] = value
     end
 
+    # Option getting and setting using ghost methods
     def method_missing(method, *args, &block)
       if method.to_s.include? '='
         method = method.to_s.tr('=', '').to_sym
