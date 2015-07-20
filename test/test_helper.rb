@@ -1,5 +1,10 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+if RUBY_PLATFORM == "java"
+  require 'simplecov'
+  SimpleCov.start
+else
+  require "codeclimate-test-reporter"
+  CodeClimate::TestReporter.start
+end
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/spec'
