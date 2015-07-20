@@ -6,3 +6,11 @@ Rake::TestTask.new do |t|
 end
 
 task :default => [:test]
+
+desc "Update YoutubeDL binaries"
+task :update_binaries do
+  puts "Updating python script"
+  system('wget -O ./vendor/bin/youtube-dl https://yt-dl.org/latest/youtube-dl')
+  puts "Updating Windows EXE"
+  system('wget -O ./vendor/bin/youtube-dl.exe https://yt-dl.org/latest/youtube-dl.exe')
+end

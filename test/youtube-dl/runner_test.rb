@@ -18,13 +18,13 @@ describe YoutubeDL::Runner do
   end
 
   it 'should set executable path automatically' do
-    assert_equal @runner.executable_path, 'youtube-dl'
+    assert_match 'youtube-dl', @runner.executable_path
   end
 
   it 'should parse key-values from options' do
     @runner.options.some_key = "a value"
 
-    refute_nil @runner.to_command.match(/--some-key\s.*a value.*/) 
+    refute_nil @runner.to_command.match(/--some-key\s.*a value.*/)
   end
 
   it 'should not include the value if value is true' do

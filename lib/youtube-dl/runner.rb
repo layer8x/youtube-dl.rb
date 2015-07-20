@@ -13,7 +13,7 @@ module YoutubeDL
     def initialize(url, options=YoutubeDL::Options.new)
       @url = url
       @options = YoutubeDL::Options.new(options.to_hash)
-      @executable_path = 'youtube-dl'
+      @executable_path = usable_executable_path
     end
 
     # Returns Cocaine's runner engine
@@ -67,6 +67,18 @@ module YoutubeDL
     # @return [Cocaine::CommandLine] initialized Cocaine instance
     def cocaine_line(command)
       Cocaine::CommandLine.new(@executable_path, command)
+    end
+
+    # Returns a usable executable (system or vendor)
+    #
+    # @return [String] youtube-dl executable path
+    def usable_executable_path
+      system_path = `which youtube-dl`
+      if $?.exitstatus == 0
+        system_path
+      else
+        File.absolute_path("#{__FILE__}/../../../vendor/bin/youtube-dl")
+      end
     end
   end
 end
