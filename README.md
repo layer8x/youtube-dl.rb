@@ -3,25 +3,6 @@
 Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
 [![Build Status](https://travis-ci.org/layer8x/youtube-dl.rb.svg?branch=master)](https://travis-ci.org/layer8x/youtube-dl.rb)
 
-## Installing youtube-dl
-This gem does not ship with the `youtube-dl` command-line program (yet!) so you will need to install `youtube-dl` manually.  Luckily there are three ways to do it.
-
-### The easy way
-Use your distro's package manager!
-
-    $ apt-get install youtube-dl
-    $ brew install youtube-dl
-
-Or through Pip
-
-    $ pip install youtube-dl
-
-### The slightly harder way
-```bash
-sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-sudo chmod a+x /usr/local/bin/youtube-dl
-```
-
 ## Install the gem
 
 Add this line to your application's Gemfile:
@@ -37,6 +18,9 @@ And then execute:
 Or install it yourself as:
 
     $ gem install youtube-dl.rb
+
+## Install youtube-dl
+This gem ships with the latest (working) version of youtube-dl built-in, so you don't have to install youtube-dl at all! Unless you want to.
 
 ## Usage
 
@@ -67,3 +51,5 @@ YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", options
 4. Pass test suite (`rake test`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create a new Pull Request
+
+Remember: commit now, commit often. 
