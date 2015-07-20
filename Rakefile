@@ -10,9 +10,9 @@ task :default => [:test]
 namespace :binaries do
   def get_binaries(version)
     puts "Updating python script"
-    system("wget -O ./vendor/bin/youtube-dl https://yt-dl.org/#{version}/youtube-dl")
+    system("wget -O ./vendor/bin/youtube-dl https://yt-dl.org/downloads/#{version}/youtube-dl")
     puts "Updating Windows EXE"
-    system("wget -O ./vendor/bin/youtube-dl.exe https://yt-dl.org/#{version}/youtube-dl.exe")
+    system("wget -O ./vendor/bin/youtube-dl.exe https://yt-dl.org/downloads/#{version}/youtube-dl.exe")
   end
 
   desc "Get latest binaries"
