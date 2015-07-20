@@ -1,7 +1,10 @@
 # youtube-dl.rb
 
 Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
+
 [![Build Status](https://travis-ci.org/layer8x/youtube-dl.rb.svg?branch=master)](https://travis-ci.org/layer8x/youtube-dl.rb)
+[![Code Climate](https://codeclimate.com/github/layer8x/youtube-dl.rb/badges/gpa.svg)](https://codeclimate.com/github/layer8x/youtube-dl.rb)
+[![Test Coverage](https://codeclimate.com/github/layer8x/youtube-dl.rb/badges/coverage.svg)](https://codeclimate.com/github/layer8x/youtube-dl.rb/coverage)
 
 ## Install the gem
 
@@ -52,4 +55,4 @@ YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", options
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create a new Pull Request
 
-Remember: commit now, commit often. 
+Remember: commit now, commit often.
