@@ -1,4 +1,4 @@
-before_install: 'sudo pip install youtube-dl'
+sudo: false
 rvm:
 - 1.9.3
 - 2.0.0
