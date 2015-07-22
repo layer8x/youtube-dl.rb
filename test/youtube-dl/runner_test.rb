@@ -21,6 +21,14 @@ describe YoutubeDL::Runner do
     assert_match 'youtube-dl', @runner.executable_path
   end
 
+  it 'should not have a newline char in the executable_path' do
+    assert_match /youtube-dl\z/, @runner.executable_path
+  end
+
+  it 'should not have newline char in to_command' do
+    assert_match /youtube-dl\s/, @runner.to_command
+  end
+
   it 'should parse key-values from options' do
     @runner.options.some_key = "a value"
 

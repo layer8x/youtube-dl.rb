@@ -75,7 +75,7 @@ module YoutubeDL
     def usable_executable_path
       system_path = `which youtube-dl`
       if $?.exitstatus == 0
-        system_path
+        system_path.strip
       else
         vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/youtube-dl")
         File.chmod(775, vendor_path) unless File.executable?(vendor_path) # Make sure vendor binary is executable
