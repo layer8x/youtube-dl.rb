@@ -13,7 +13,10 @@ require 'pry'
 
 require_relative '../lib/youtube-dl.rb'
 
-NOPE = "https://www.youtube.com/watch?v=gvdf5n-zI14"
+TEST_URL = "https://www.youtube.com/watch?v=gvdf5n-zI14"
+TEST_URL2 = "https://www.youtube.com/watch?v=Mt0PUjh-nDM"
+TEST_FILENAME = "nope.avi.mp4"
+TEST_FORMAT = "5"
 
 def remove_downloaded_files
   Dir.glob("**/nope*").each do |nope|

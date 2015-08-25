@@ -6,12 +6,12 @@ describe YoutubeDL do
   end
 
   it 'should download videos' do
-    YoutubeDL.get NOPE, output: 'nope.avi'
-    assert File.exist? 'nope.avi'
+    YoutubeDL.get TEST_URL, output: TEST_FILENAME, format: TEST_FORMAT
+    assert File.exist? TEST_FILENAME
   end
 
   it 'should download multiple videos' do
-    YoutubeDL.download [NOPE, "https://www.youtube.com/watch?v=Mt0PUjh-nDM"]
+    YoutubeDL.download [TEST_URL, TEST_URL2]
     assert_equal Dir.glob('nope*').length, 2
   end
 end
