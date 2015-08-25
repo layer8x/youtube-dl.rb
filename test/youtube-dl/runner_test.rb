@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 describe YoutubeDL::Runner do
   before do
-    @runner = YoutubeDL::Runner.new(NOPE)
+    @runner = YoutubeDL::Runner.new(TEST_URL)
   end
 
   after do
@@ -42,14 +42,14 @@ describe YoutubeDL::Runner do
   end
 
   it 'should run commands' do
-    @runner.options.output = 'nope.flv'
-    @runner.options.format = YOUTUBE_DL_FORMAT_FLV
+    @runner.options.output = TEST_FILENAME
+    @runner.options.format = TEST_FORMAT
     @runner.run
-    assert File.exists? 'nope.flv'
+    assert File.exists? TEST_FILENAME
   end
 
   it 'should take options as a hash yet still have configuration blocks work' do
-    r = YoutubeDL::Runner.new(NOPE, {some_key: 'some value'})
+    r = YoutubeDL::Runner.new(TEST_URL, {some_key: 'some value'})
     r.options.configure do |c|
       c.another_key = 'another_value'
     end
