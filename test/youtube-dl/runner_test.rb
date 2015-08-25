@@ -42,9 +42,9 @@ describe YoutubeDL::Runner do
   end
 
   it 'should run commands' do
-    @runner.options.output = 'nope.avi'
+    @runner.options.output = 'nope'
     @runner.run
-    assert File.exists? 'nope.avi'
+    assert File.exists? 'nope.mp4'
   end
 
   it 'should take options as a hash yet still have configuration blocks work' do

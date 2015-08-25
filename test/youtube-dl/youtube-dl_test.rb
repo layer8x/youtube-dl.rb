@@ -6,8 +6,8 @@ describe YoutubeDL do
   end
 
   it 'should download videos' do
-    YoutubeDL.get NOPE, output: 'nope.avi'
-    assert File.exist? 'nope.avi'
+    YoutubeDL.get NOPE, output: 'nope'
+    assert File.exist? 'nope.mp4'
   end
 
   it 'should download multiple videos' do
