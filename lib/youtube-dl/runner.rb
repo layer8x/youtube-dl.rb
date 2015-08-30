@@ -74,7 +74,7 @@ module YoutubeDL
     # @return [String] youtube-dl executable path
     def usable_executable_path
       system_path = `which youtube-dl 2> /dev/null` # This will currently only work on Unix systems. TODO: Add Windows support
-      if $?.exitstatus == 0
+      if $?.exitstatus == 0 # $? is an object with information on that last command run with backticks.
         system_path.strip
       else
         vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/youtube-dl")
