@@ -73,7 +73,7 @@ module YoutubeDL
     #
     # @return [String] youtube-dl executable path
     def usable_executable_path
-      system_path = `which youtube-dl`
+      system_path = `which youtube-dl 2> /dev/null` # This will currently only work on Unix systems. TODO: Add Windows support
       if $?.exitstatus == 0
         system_path.strip
       else
