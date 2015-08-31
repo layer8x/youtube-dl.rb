@@ -47,7 +47,7 @@ module YoutubeDL
     alias_method :download, :run
 
     def formats
-      parse_format_output(cocaine_line("--list-formats #{url}").run)
+      parse_format_output(cocaine_line("--list-formats #{quoted(url)}").run)
     end
 
     private
