@@ -21,21 +21,6 @@ describe YoutubeDL::Runner do
     assert_match 'youtube-dl', @runner.executable_path
   end
 
-  it 'should detect system youtube-dl' do
-    vendor_bin = File.join(Dir.pwd, 'vendor', 'bin', 'youtube-dl')
-    Dir.mktmpdir do |tmpdir|
-      FileUtils.cp vendor_bin, tmpdir
-
-      old_path = ENV["PATH"]
-      ENV["PATH"] = "#{tmpdir}:#{old_path}"
-
-      runner_usable_path = @runner.send(:usable_executable_path)
-      assert_match runner_usable_path, "#{tmpdir}/youtube-dl"
-
-      ENV["PATH"] = old_path
-    end
-  end
-
   it 'should not have a newline char in the executable_path' do
     assert_match /youtube-dl\z/, @runner.executable_path
   end

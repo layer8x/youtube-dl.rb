@@ -2,6 +2,8 @@ require 'cocaine'
 
 module YoutubeDL
   class Runner
+    include YoutubeDL::Support
+
     attr_accessor :url
     attr_accessor :options
     attr_accessor :executable_path
@@ -13,7 +15,7 @@ module YoutubeDL
     def initialize(url, options=YoutubeDL::Options.new)
       @url = url
       @options = YoutubeDL::Options.new(options.to_hash)
-      @executable_path = usable_executable_path
+      @executable_path = usable_executable_path_for('youtube-dl')
     end
 
     # Returns Cocaine's runner engine
@@ -67,20 +69,6 @@ module YoutubeDL
     # @return [Cocaine::CommandLine] initialized Cocaine instance
     def cocaine_line(command)
       Cocaine::CommandLine.new(@executable_path, command)
-    end
-
-    # Returns a usable executable (system or vendor)
-    #
-    # @return [String] youtube-dl executable path
-    def usable_executable_path
-      system_path = `which youtube-dl 2> /dev/null` # This will currently only work on Unix systems. TODO: Add Windows support
-      if $?.exitstatus == 0 # $? is an object with information on that last command run with backticks.
-        system_path.strip
-      else
-        vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/youtube-dl")
-        File.chmod(775, vendor_path) unless File.executable?(vendor_path) # Make sure vendor binary is executable
-        vendor_path
-      end
     end
   end
 end
