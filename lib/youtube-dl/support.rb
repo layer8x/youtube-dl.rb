@@ -11,6 +11,7 @@ module YoutubeDL
       if $?.exitstatus == 0 # $? is an object with information on that last command run with backticks.
         system_path.strip
       else
+        # TODO: Search vendor bin for executable before just saying it's there. 
         vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/#{exe}")
         File.chmod(775, vendor_path) unless File.executable?(vendor_path) # Make sure vendor binary is executable
         vendor_path

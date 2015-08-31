@@ -17,12 +17,20 @@ module YoutubeDL
     end
     alias_method :to_h, :to_hash
 
+    # Iterate through the paramized keys and values.
+    #
+    # @yield [paramized_key, value]
+    #
+    # TODO: Enumerable?
     def each_paramized
       @store.each do |key, value|
         yield(paramize(key), value)
       end
     end
 
+    # Iterate through the keys and their paramized counterparts.
+    #
+    # @yield [key, paramized_key]
     def each_paramized_key
       @store.each_key do |key|
         yield(key, paramize(key))
@@ -30,16 +38,25 @@ module YoutubeDL
     end
 
     # Set options using a block
+    #
+    # @yield [config] self
+    # TODO: support calling without arguments
     def configure(&block)
       block.call(self)
     end
 
     # Get option with brackets syntax
+    #
+    # @param key [Object] key
+    # @return [Object] value
     def [](key)
       @store[key.to_sym]
     end
 
     # Set option with brackets syntax
+    #
+    # @param key [Object] key
+    # @param value [Object] value
     def []=(key, value)
       @store[key.to_sym] = value
     end
@@ -59,10 +76,13 @@ module YoutubeDL
       # Symbolize
       manipulate_keys! { |key_name| key_name.is_a?(Symbol) ? key_name : key_name.to_sym }
 
-      # Underscoreize
+      # Underscoreize (because Cocaine doesn't like hyphens)
       manipulate_keys! { |key_name| key_name.to_s.tr('-', '_').to_sym }
     end
 
+    # Symbolizes and sanitizes keys and returns a copy of self
+    #
+    # @return [YoutubeDL::Options] Options with sanitized keys.
     def sanitize_keys
       safe_copy = self.dup
       safe_copy.sanitize_keys!

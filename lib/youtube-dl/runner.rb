@@ -46,7 +46,12 @@ module YoutubeDL
     end
     alias_method :download, :run
 
+    # Returns a list of supported formats for the video in the form of
+    # [{:format_code => '000', :extension => 'avi', :resolution => '320x240', :note => 'More details about the format'}]
+    #
+    # @return [Array] Format list
     def formats
+      # TODO: Move formats to its own model?
       parse_format_output(cocaine_line("--list-formats #{quoted(url)}").run)
     end
 
@@ -68,6 +73,10 @@ module YoutubeDL
       commands.join(' ')
     end
 
+    # Helper to add quotes to beginning and end of a URL.
+    #
+    # @param url [String] Raw URL
+    # @return [String] Quoted URL
     def quoted(url)
       "\"#{url}\""
     end
