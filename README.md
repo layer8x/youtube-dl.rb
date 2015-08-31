@@ -6,7 +6,7 @@ Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
 [![Code Climate](https://codeclimate.com/github/layer8x/youtube-dl.rb/badges/gpa.svg)](https://codeclimate.com/github/layer8x/youtube-dl.rb)
 [![Test Coverage](https://codeclimate.com/github/layer8x/youtube-dl.rb/badges/coverage.svg)](https://codeclimate.com/github/layer8x/youtube-dl.rb/coverage)
 [![security](https://hakiri.io/github/layer8x/youtube-dl.rb/master.svg)](https://hakiri.io/github/layer8x/youtube-dl.rb/master)
-[![Documentaiton](http://inch-ci.org/github/layer8x/youtube-dl.rb.svg?branch=master)](http://inch-ci.org/github/layer8x/youtube-dl.rb.svg?branch=master)
+[![Inline docs](http://inch-ci.org/github/layer8x/youtube-dl.rb.svg?branch=master)](http://inch-ci.org/github/layer8x/youtube-dl.rb)
 [![Dependency Status](https://gemnasium.com/layer8x/youtube-dl.rb.svg)](https://gemnasium.com/layer8x/youtube-dl.rb)
 
 [![Stories in Ready](https://badge.waffle.io/layer8x/youtube-dl.rb.svg?label=ready&title=Ready)](http://waffle.io/layer8x/youtube-dl.rb)
