@@ -57,8 +57,12 @@ module YoutubeDL
           commands.push "--#{paramized_key} :#{key}"
         end
       end
-      commands.push url
+      commands.push quoted(url)
       commands.join(' ')
+    end
+
+    def quoted(url)
+      "\"#{url}\""
     end
 
     # Helper for doing lines of cocaine (initializing, auto executable stuff, etc)
