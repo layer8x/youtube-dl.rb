@@ -57,7 +57,7 @@ module YoutubeDL
     # @return [String] commands ready to do cocaine
     def options_to_commands
       commands = []
-      options.each_paramized_key do |key, paramized_key|
+      options.sanitize_keys.each_paramized_key do |key, paramized_key|
         if options[key].to_s == 'true'
           commands.push "--#{paramized_key}"
         else

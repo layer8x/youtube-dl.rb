@@ -54,14 +54,19 @@ module YoutubeDL
       end
     end
 
-    # Symbolizes keys in the option store
-    def symbolize_keys!
-      @store.keys.each do |key_name|
-        unless key_name.is_a? Symbol
-          @store[key_name.to_sym] = @store[key_name]
-          @store.delete(key_name)
-        end
-      end
+    # Symbolizes and sanitizes keys in the option store
+    def sanitize_keys!
+      # Symbolize
+      manipulate_keys! { |key_name| key_name.is_a?(Symbol) ? key_name : key_name.to_sym }
+
+      # Underscoreize
+      manipulate_keys! { |key_name| key_name.to_s.tr('-', '_').to_sym }
+    end
+
+    def sanitize_keys
+      safe_copy = self.dup
+      safe_copy.sanitize_keys!
+      safe_copy
     end
 
     private
@@ -71,6 +76,16 @@ module YoutubeDL
     # @return [String] paramized key
     def paramize(key)
       key.to_s.tr("_", '-')
+    end
+
+    def manipulate_keys!(&block)
+      @store.keys.each do |old_name|
+        new_name = block.call(old_name)
+        unless new_name == old_name
+          @store[new_name] = @store[old_name]
+          @store.delete(old_name)
+        end
+      end
     end
   end
 end

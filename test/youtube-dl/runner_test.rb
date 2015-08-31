@@ -68,4 +68,16 @@ describe YoutubeDL::Runner do
       assert_includes formats.last, key
     end
   end
+  
+  it 'should handle strangely-formatted options correctly' do # See issue #9
+    options = {
+      format: 'bestaudio',
+      :"prefer-ffmpeg" => "true",
+      :"extract-audio" => true,
+      :"audio-format" => "mp3"
+    }
+
+    @runner.options = YoutubeDL::Options.new(options)
+    assert_match /youtube-dl --format 'bestaudio' --prefer-ffmpeg --extract-audio --audio-format 'mp3'/, @runner.to_command
+  end
 end
