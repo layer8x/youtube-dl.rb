@@ -44,6 +44,7 @@ module YoutubeDL
     def run
       cocaine_line(options_to_commands).run(@options.store)
     end
+    alias_method :download, :run
 
     private
 
