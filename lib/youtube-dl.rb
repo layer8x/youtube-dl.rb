@@ -26,4 +26,8 @@ module YoutubeDL
   def extractors
     Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--list-extractors').run.split("\n")
   end
+
+  def binary_version
+    Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--version').run.chomp
+  end
 end

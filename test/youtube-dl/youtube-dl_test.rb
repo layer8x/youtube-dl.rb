@@ -24,4 +24,18 @@ describe YoutubeDL do
       assert_instance_of String, extractors.first
     end
   end
+
+  describe '.binary_version' do
+    before do
+      @version = YoutubeDL.binary_version
+    end
+
+    it 'should return a string' do
+      assert_instance_of String, @version
+    end
+
+    it 'should be a specific format with no newlines' do
+      assert_match /\d+.\d+.\d+\z/, @version
+    end
+  end
 end
