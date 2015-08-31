@@ -71,6 +71,22 @@ module YoutubeDL
       end
     end
 
+    # Calls a block to do operations on keys
+    # See sanitize_keys! for examples
+    #
+    # @param block [Proc] Block with operations on keys
+    # @yieldparam key [Object] Original key
+    # @yieldreturn [Object] Manipulated key
+    def manipulate_keys!(&block)
+      @store.keys.each do |old_name|
+        new_name = block.call(old_name)
+        unless new_name == old_name
+          @store[new_name] = @store[old_name]
+          @store.delete(old_name)
+        end
+      end
+    end
+
     # Symbolizes and sanitizes keys in the option store
     def sanitize_keys!
       # Symbolize
@@ -96,16 +112,6 @@ module YoutubeDL
     # @return [String] paramized key
     def paramize(key)
       key.to_s.tr("_", '-')
-    end
-
-    def manipulate_keys!(&block)
-      @store.keys.each do |old_name|
-        new_name = block.call(old_name)
-        unless new_name == old_name
-          @store[new_name] = @store[old_name]
-          @store.delete(old_name)
-        end
-      end
     end
   end
 end

@@ -80,4 +80,12 @@ describe YoutubeDL::Options do
     @options.store['some-key'] = "some_value"
     assert_instance_of YoutubeDL::Options, @options.sanitize_keys
   end
+
+  it 'should manipulate keys' do
+    @options.some_key = 'value'
+    @options.manipulate_keys! do |key|
+      key.to_s.upcase
+    end
+    assert_equal({'SOME_KEY' => 'value'}, @options.store)
+  end
 end
