@@ -46,6 +46,10 @@ module YoutubeDL
     end
     alias_method :download, :run
 
+    def formats
+      parse_format_output(cocaine_line("--list-formats #{url}").run)
+    end
+
     private
 
     # Parses options and converts them to Cocaine's syntax
@@ -70,6 +74,22 @@ module YoutubeDL
     # @return [Cocaine::CommandLine] initialized Cocaine instance
     def cocaine_line(command)
       Cocaine::CommandLine.new(@executable_path, command)
+    end
+
+    # Do you like voodoo?
+    #
+    # @param format_output [String] output from youtube-dl --list-formats
+    # @return [Array] Magic.
+    def parse_format_output(format_output)
+      # WARNING: This shit won't be documented or even properly tested. It's almost 3 in the morning and I have no idea what I'm doing.
+      this_shit = []
+      format_output.slice(format_output.index('format code')..-1).split("\n").each do |line|
+        a = {}
+        a[:format_code], a[:extension], a[:resolution], a[:note] = line.scan(/\A(\d+)\s+(\w+)\s+(\S+)\s(.*)/)[0]
+        this_shit.push a
+      end
+      this_shit.shift
+      this_shit.map { |gipo| gipo[:note].strip!; gipo }
     end
   end
 end

@@ -57,4 +57,15 @@ describe YoutubeDL::Runner do
     assert_includes r.to_command, "--some-key"
     assert_includes r.to_command, "--another-key"
   end
+
+  it 'might list formats' do
+    formats = @runner.formats
+    assert_instance_of Array, formats
+    assert_instance_of Hash, formats.first
+    assert_equal 4, formats.first.size
+    [:format_code, :resolution, :extension, :note].each do |key|
+      assert_includes formats.first, key
+      assert_includes formats.last, key
+    end
+  end
 end
