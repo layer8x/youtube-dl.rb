@@ -12,6 +12,6 @@ describe YoutubeDL do
 
   it 'should download multiple videos' do
     YoutubeDL.download [TEST_URL, TEST_URL2]
-    assert_equal Dir.glob('nope*').length, 2
+    assert_equal Dir.glob(TEST_GLOB).length, 2
   end
 end
