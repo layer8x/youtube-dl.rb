@@ -2,6 +2,8 @@ require 'cocaine'
 
 module YoutubeDL
   class Runner
+    include YoutubeDL::Support
+
     attr_accessor :url
     attr_accessor :options
     attr_accessor :executable_path
@@ -13,7 +15,7 @@ module YoutubeDL
     def initialize(url, options=YoutubeDL::Options.new)
       @url = url
       @options = YoutubeDL::Options.new(options.to_hash)
-      @executable_path = usable_executable_path
+      @executable_path = usable_executable_path_for('youtube-dl')
     end
 
     # Returns Cocaine's runner engine
@@ -41,6 +43,11 @@ module YoutubeDL
     # Runs the command
     def run
       cocaine_line(options_to_commands).run(@options.store)
+    end
+    alias_method :download, :run
+
+    def formats
+      parse_format_output(cocaine_line("--list-formats #{quoted(url)}").run)
     end
 
     private
@@ -73,18 +80,20 @@ module YoutubeDL
       Cocaine::CommandLine.new(@executable_path, command)
     end
 
-    # Returns a usable executable (system or vendor)
+    # Do you like voodoo?
     #
-    # @return [String] youtube-dl executable path
-    def usable_executable_path
-      system_path = `which youtube-dl 2> /dev/null` # This will currently only work on Unix systems. TODO: Add Windows support
-      if $?.exitstatus == 0 # $? is an object with information on that last command run with backticks.
-        system_path.strip
-      else
-        vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/youtube-dl")
-        File.chmod(775, vendor_path) unless File.executable?(vendor_path) # Make sure vendor binary is executable
-        vendor_path
+    # @param format_output [String] output from youtube-dl --list-formats
+    # @return [Array] Magic.
+    def parse_format_output(format_output)
+      # WARNING: This shit won't be documented or even properly tested. It's almost 3 in the morning and I have no idea what I'm doing.
+      this_shit = []
+      format_output.slice(format_output.index('format code')..-1).split("\n").each do |line|
+        a = {}
+        a[:format_code], a[:extension], a[:resolution], a[:note] = line.scan(/\A(\d+)\s+(\w+)\s+(\S+)\s(.*)/)[0]
+        this_shit.push a
       end
+      this_shit.shift
+      this_shit.map { |gipo| gipo[:note].strip!; gipo }
     end
   end
 end
