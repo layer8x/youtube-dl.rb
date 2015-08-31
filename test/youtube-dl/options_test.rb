@@ -70,4 +70,14 @@ describe YoutubeDL::Options do
     @options.sanitize_keys!
     assert_equal({hyphenated_key: 'value'}, @options.to_h)
   end
+
+  it 'should not modify the original by calling sanitize_keys without bang' do
+    @options.store['some-key'] = "some_value"
+    refute_equal @options.sanitize_keys, @options
+  end
+
+  it 'should return instance of Options when calling sanitize_keys' do
+    @options.store['some-key'] = "some_value"
+    assert_instance_of YoutubeDL::Options, @options.sanitize_keys
+  end
 end
