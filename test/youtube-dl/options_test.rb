@@ -7,8 +7,8 @@ describe YoutubeDL::Options do
 
   it 'should symbolize option keys' do
     @options.store['key'] = "value"
-    @options.symbolize_keys!
-    assert @options.store == {:key => 'value'}
+    @options.sanitize_keys!
+    assert_equal({key: 'value'}, @options.store)
   end
 
   it 'should be able to set options with method_missing' do
@@ -63,5 +63,11 @@ describe YoutubeDL::Options do
       assert_equal :some_key, key
       assert_equal 'some-key', paramized_key
     end
+  end
+
+  it 'should convert hyphens to underscores in keys' do # See issue #9
+    @options.store[:"hyphenated-key"] = 'value'
+    @options.sanitize_keys!
+    assert_equal({hyphenated_key: 'value'}, @options.to_h)
   end
 end
