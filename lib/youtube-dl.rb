@@ -5,6 +5,7 @@ require 'youtube-dl/runner'
 
 module YoutubeDL
   extend self
+  extend Support
 
   # Downloads given array of URLs with any options passed
   #
@@ -21,4 +22,8 @@ module YoutubeDL
   end
 
   alias_method :get, :download
+
+  def extractors
+    Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--list-extractors').run.split("\n")
+  end
 end
