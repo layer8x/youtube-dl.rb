@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative './test_helper'
 
 describe YoutubeDL do
   describe '.download' do
