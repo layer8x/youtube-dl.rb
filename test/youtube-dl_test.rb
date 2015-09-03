@@ -6,14 +6,35 @@ describe YoutubeDL do
       remove_downloaded_files
     end
 
-    it 'should download videos' do
-      YoutubeDL.get TEST_URL, output: TEST_FILENAME, format: TEST_FORMAT
+    it 'should download videos without options' do
+      YoutubeDL.download TEST_URL
+      assert_equal Dir.glob(TEST_GLOB).length, 1
+    end
+
+    it 'should download videos with options' do
+      YoutubeDL.download TEST_URL, output: TEST_FILENAME, format: TEST_FORMAT
       assert File.exist? TEST_FILENAME
     end
 
-    it 'should download multiple videos' do
+    it 'should download multiple videos without options' do
       YoutubeDL.download [TEST_URL, TEST_URL2]
-      assert_equal Dir.glob('nope*').length, 2
+      assert_equal Dir.glob(TEST_GLOB).length, 2
+    end
+
+    it 'should download multiple videos with options' do
+      YoutubeDL.download [TEST_URL, TEST_URL2], output: 'test_%(title)s-%(id)s.%(ext)s'
+      assert_equal Dir.glob('test_' + TEST_GLOB).length, 2
+    end
+  end
+
+  describe '.get' do
+    after do
+      remove_downloaded_files
+    end
+
+    it 'should download videos, exactly like .download' do
+      YoutubeDL.get TEST_URL
+      assert_equal Dir.glob(TEST_GLOB).length, 1
     end
   end
 
