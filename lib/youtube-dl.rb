@@ -2,6 +2,7 @@ require 'youtube-dl/version'
 require 'youtube-dl/support'
 require 'youtube-dl/options'
 require 'youtube-dl/runner'
+require 'youtube-dl/video'
 
 module YoutubeDL
   extend self
@@ -16,8 +17,7 @@ module YoutubeDL
     urls = [urls] unless urls.is_a? Array
 
     urls.each do |url|
-      runner = YoutubeDL::Runner.new(url, YoutubeDL::Options.new(options))
-      runner.run
+      YoutubeDL::Video.get(url, options)
     end
   end
 
