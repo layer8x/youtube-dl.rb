@@ -28,7 +28,7 @@ describe YoutubeDL::Options do
     assert @options[:mtn] == :dew
   end
 
-  it 'should be able to use a configuration block' do
+  it 'should be able to use an explicit configuration block' do
     @options.configure do |c|
       c.get_operator = true
       c['get_index'] = true
@@ -36,6 +36,14 @@ describe YoutubeDL::Options do
 
     assert @options.store[:get_operator], "Actual: #{@options.store[:get_operator]}"
     assert @options.store[:get_index], "Actual: #{@options.store[:get_index]}"
+  end
+
+  it 'should be able to use an implicit configuration block' do
+    @options.configure do
+      walrus = 'haswalrus'
+    end
+
+    assert_equal 'haswalrus', @options.store[:walrus]
   end
 
   it 'should automatically symbolize keys' do
