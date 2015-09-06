@@ -19,6 +19,9 @@ module YoutubeDL
     # [YoutubeDL::Options] Options access.
     attr_reader :options
 
+    # [String] URL to download
+    attr_reader :url
+
     # Instantiate new model
     #
     # @param options [Hash] Options to populate the everything with
