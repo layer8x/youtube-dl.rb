@@ -42,7 +42,7 @@ module YoutubeDL
     # @yield [config] self
     # TODO: support calling without arguments
     def configure(&block)
-      block.call(self)
+      block.arity < 1 ? instance_eval(&block) : block[self] 
     end
 
     # Get option with brackets syntax
