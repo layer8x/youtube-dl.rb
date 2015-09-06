@@ -16,14 +16,9 @@ describe YoutubeDL::Video do
       assert File.exist? TEST_FILENAME
     end
 
-    it 'should download multiple videos without options' do
-      YoutubeDL::Video.download [TEST_URL, TEST_URL2]
-      assert_equal 2, Dir.glob(TEST_GLOB).length
-    end
-
-    it 'should download multiple videos with options' do
-      YoutubeDL::Video.download [TEST_URL, TEST_URL2], output: 'test_%(title)s-%(id)s.%(ext)s'
-      assert_equal 2, Dir.glob('test_' + TEST_GLOB).length
+    it 'should return an instance of YoutubeDL::Video' do
+      video = YoutubeDL::Video.download TEST_URL
+      assert_instance_of YoutubeDL::Video, video
     end
   end
 
@@ -35,6 +30,18 @@ describe YoutubeDL::Video do
     it 'should download videos, exactly like .download' do
       YoutubeDL::Video.get TEST_URL
       assert_equal Dir.glob(TEST_GLOB).length, 1
+    end
+  end
+
+  describe '#initialize' do
+    after do
+      remove_downloaded_files
+    end
+
+    it 'should return an instance of YoutubeDL::Video' do
+      video = YoutubeDL::Video.new
+
+      assert_instance_of YoutubeDL::Video, video
     end
   end
 end
