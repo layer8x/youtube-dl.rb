@@ -31,7 +31,11 @@ module YoutubeDL
       if already_downloaded?
         output.scan(/\[download\]\s(.*)\shas already been downloaded and merged/)[0][0]
       else
-        output.scan(/\[download\] Destination:\s(.*)$/)[0][0]
+        if output.include? 'Merging formats into'
+          output.scan(/Merging formats into \"(.*)\"/)[0][0]
+        else
+          output.scan(/\[download\] Destination:\s(.*)$/)[0][0]
+        end
       end
     rescue NoMethodError # There wasn't a match somewhere. Kill it with fire
       nil
