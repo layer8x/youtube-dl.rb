@@ -5,7 +5,7 @@ describe YoutubeDL::Options do
     @options = YoutubeDL::Options.new
   end
 
-  describe '.initialize' do
+  describe '#initialize' do
     it 'should symbolize option keys' do
       @options.store['key'] = "value"
       @options.sanitize_keys!
@@ -25,7 +25,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.to_hash, .to_h' do
+  describe '#to_hash, #to_h' do
     before do
       @options.store[:key] = "value"
     end
@@ -39,7 +39,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.each_paramized' do
+  describe '#each_paramized' do
     it 'should properly paramize keys and not values' do
       @options.some_key = "some value"
 
@@ -50,7 +50,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe 'each_paramized_key' do
+  describe '#each_paramized_key' do
     it 'should properly paramize keys' do # TODO: Write a better test name
       @options.some_key = "some value"
 
@@ -61,7 +61,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.configure' do
+  describe '#configure' do
     it 'should be able to use an explicit configuration block' do
       @options.configure do |c|
         c.get_operator = true
@@ -83,7 +83,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.[], .[]==' do
+  describe '#[], #[]==' do
     it 'should be able to use brackets' do
       @options[:mtn] = :dew
       assert @options[:mtn] == :dew
@@ -99,7 +99,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.method_missing' do
+  describe '#method_missing' do
     it 'should be able to set options with method_missing' do
       @options.test = true
 
@@ -113,7 +113,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.manipulate_keys!' do
+  describe '#manipulate_keys!' do
     it 'should manipulate keys' do
       @options.some_key = 'value'
       @options.manipulate_keys! do |key|
@@ -123,7 +123,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.sanitize_keys!' do
+  describe '#sanitize_keys!' do
     it 'should convert hyphens to underscores in keys' do # See issue #9
       @options.store[:"hyphenated-key"] = 'value'
       @options.sanitize_keys!
@@ -131,7 +131,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe '.sanitize_keys' do
+  describe '#sanitize_keys' do
     it 'should not modify the original by calling sanitize_keys without bang' do
       @options.store['some-key'] = "some_value"
       refute_equal @options.sanitize_keys, @options

@@ -9,7 +9,7 @@ describe YoutubeDL::Runner do
     remove_downloaded_files
   end
 
-  describe '.initialize' do
+  describe '#initialize' do
     it 'should take options as a hash yet still have configuration blocks work' do
       r = YoutubeDL::Runner.new(TEST_URL, {some_key: 'some value'})
       r.options.configure do |c|
@@ -21,7 +21,7 @@ describe YoutubeDL::Runner do
     end
   end
 
-  describe '.executable_path' do
+  describe '#executable_path' do
     it 'should set executable path automatically' do
       assert_match 'youtube-dl', @runner.executable_path
     end
@@ -31,11 +31,7 @@ describe YoutubeDL::Runner do
     end
   end
 
-  describe '.backend_runner' do
-
-  end
-
-  describe '.backend_runner=' do
+  describe '#backend_runner=, #backend_runner' do
     it 'should set cocaine runner' do
       @runner.backend_runner = Cocaine::CommandLine::BackticksRunner.new
       assert_instance_of Cocaine::CommandLine::BackticksRunner, @runner.backend_runner
@@ -45,7 +41,7 @@ describe YoutubeDL::Runner do
     end
   end
 
-  describe '.to_command' do
+  describe '#to_command' do
     it 'should parse key-values from options' do
       @runner.options.some_key = "a value"
 
@@ -69,7 +65,7 @@ describe YoutubeDL::Runner do
     end
   end
 
-  describe '.run' do
+  describe '#run' do
     it 'should run commands' do
       @runner.options.output = TEST_FILENAME
       @runner.options.format = TEST_FORMAT
