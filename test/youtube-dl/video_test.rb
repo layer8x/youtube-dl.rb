@@ -52,7 +52,7 @@ describe YoutubeDL::Video do
 
     it 'should set model variables accordingly' do
       @video.download
-      assert_equal @video.filename, Dir.glob(TEST_GLOB).first
+      assert_equal Dir.glob(TEST_GLOB).first, @video.filename
     end
   end
 

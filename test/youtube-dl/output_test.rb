@@ -21,6 +21,17 @@ module OutputFactory
   end
 end
 
+puts
+puts " --------------- OutputFactory.download --------------- "
+puts OutputFactory.download
+puts
+puts " --------------- OutputFactory.download_exists --------------- "
+puts OutputFactory.download_exists
+puts
+puts " --------------- OutputFactory.list_formats --------------- "
+puts OutputFactory.list_formats
+puts 
+
 describe YoutubeDL::Output do
   describe '#initialize' do
     it 'should set the output variable' do
