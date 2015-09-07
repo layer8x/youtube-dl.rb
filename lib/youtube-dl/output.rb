@@ -18,7 +18,7 @@ module YoutubeDL
 
     # Takes the output of a download
     #
-    # @return [String] filename saved
+    # @return [String] filename saved, nil if no match
     def filename
       # Check to see if file was already downloaded
       if already_downloaded?
@@ -26,7 +26,7 @@ module YoutubeDL
       else
         output.scan(/Merging formats into \"(.*)\"/)[0][0]
       end
-    rescue NoMethodError
+    rescue NoMethodError # There wasn't a match somewhere. Kill it with fire
       nil
     end
 

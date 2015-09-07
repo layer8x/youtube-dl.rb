@@ -13,7 +13,7 @@ module YoutubeDL
   #
   # @param urls [String, Array] URLs to download
   # @param options [Hash] Downloader options
-  def download(urls, options={})  
+  def download(urls, options={})
     if urls.is_a? Array
       urls.map { |url| YoutubeDL::Video.get(url, options) }
     else
@@ -23,14 +23,23 @@ module YoutubeDL
 
   alias_method :get, :download
 
+  # Lists extractors
+  #
+  # @return [Array] list of extractors
   def extractors
     @extractors ||= cocaine_line('--list-extractors').run.split("\n")
   end
 
+  # Returns youtube-dl's version
+  #
+  # @return [String] youtube-dl version
   def binary_version
     @binary_version ||= cocaine_line('--version').run.strip
   end
 
+  # Returns user agent
+  #
+  # @return [String] user agent
   def user_agent
     @user_agent ||= cocaine_line('--dump-user-agent').run.strip
   end
