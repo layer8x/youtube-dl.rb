@@ -39,7 +39,7 @@ describe YoutubeDL::Video do
     end
 
     it 'should return an instance of YoutubeDL::Video' do
-      video = YoutubeDL::Video.new
+      video = YoutubeDL::Video.new TEST_URL
 
       assert_instance_of YoutubeDL::Video, video
     end
