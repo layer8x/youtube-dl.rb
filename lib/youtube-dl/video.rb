@@ -1,6 +1,6 @@
 module YoutubeDL
   # Video model
-  class Video
+  class Video < Runner
     class << self
       # Instantiate a new Video model and download the video
       #
@@ -16,14 +16,12 @@ module YoutubeDL
       alias_method :get, :download
     end
 
-    # [YoutubeDL::Options] Options access.
-    attr_reader :options
-
-    # [String] URL to download
-    attr_reader :url
+    # [YoutubeDL::Options] Download Options for the last download
+    attr_reader :download_options
 
     # Instantiate new model
     #
+    # @param url [String] URL to initialize with
     # @param options [Hash] Options to populate the everything with
     def initialize(url, options={})
       @url = url
@@ -32,7 +30,18 @@ module YoutubeDL
 
     # Download the video.
     def download
-      YoutubeDL::Runner.new(url, runner_options).run
+      @download_options = YoutubeDL::Options.new(runner_options)
+      @last_download_output = YoutubeDL::Runner.new(url, @download_options).run
+    end
+
+    alias_method :get, :download
+
+    # Returns a list of supported formats for the video in the form of
+    # [{:format_code => '000', :extension => 'avi', :resolution => '320x240', :note => 'More details about the format'}]
+    #
+    # @return [Array] Format list
+    def formats
+      YoutubeDL::Output.new(cocaine_line("--list-formats #{quoted(url)}").run).formats
     end
 
   private
