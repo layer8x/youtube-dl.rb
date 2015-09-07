@@ -26,6 +26,8 @@ module YoutubeDL
       else
         output.scan(/Merging formats into \"(.*)\"/)[0][0]
       end
+    rescue NoMethodError
+      nil
     end
 
     # Takes the output of a download
