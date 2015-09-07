@@ -24,10 +24,19 @@ module YoutubeDL
   alias_method :get, :download
 
   def extractors
-    @extractors ||= Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--list-extractors').run.split("\n")
+    @extractors ||= _cocaine_youtube_dl('--list-extractors').split("\n")
   end
 
   def binary_version
-    @binary_version ||= Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--version').run.chomp
+    @binary_version ||= _cocaine_youtube_dl('--version').strip
+  end
+
+  def user_agent
+    @user_agent ||= _cocaine_youtube_dl('--dump-user-agent').strip
+  end
+
+  # Helper for doing information stuff
+  def _cocaine_youtube_dl(*query)
+    Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), *query).run
   end
 end
