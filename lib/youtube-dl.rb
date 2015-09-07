@@ -1,7 +1,9 @@
 require 'youtube-dl/version'
 require 'youtube-dl/support'
 require 'youtube-dl/options'
+require 'youtube-dl/output'
 require 'youtube-dl/runner'
+require 'youtube-dl/video'
 
 module YoutubeDL
   extend self
@@ -12,22 +14,33 @@ module YoutubeDL
   # @param urls [String, Array] URLs to download
   # @param options [Hash] Downloader options
   def download(urls, options={})
-    # force convert urls to array
-    urls = [urls] unless urls.is_a? Array
-
-    urls.each do |url|
-      runner = YoutubeDL::Runner.new(url, YoutubeDL::Options.new(options))
-      runner.run
+    if urls.is_a? Array
+      urls.map { |url| YoutubeDL::Video.get(url, options) }
+    else
+      YoutubeDL::Video.get(urls, options) # Urls should be singular but oh well. url = urls. There. Go cry in a corner.
     end
   end
 
   alias_method :get, :download
 
+  # Lists extractors
+  #
+  # @return [Array] list of extractors
   def extractors
-    Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--list-extractors').run.split("\n")
+    @extractors ||= cocaine_line('--list-extractors').run.split("\n")
   end
 
+  # Returns youtube-dl's version
+  #
+  # @return [String] youtube-dl version
   def binary_version
-    Cocaine::CommandLine.new(usable_executable_path_for('youtube-dl'), '--version').run.chomp
+    @binary_version ||= cocaine_line('--version').run.strip
+  end
+
+  # Returns user agent
+  #
+  # @return [String] user agent
+  def user_agent
+    @user_agent ||= cocaine_line('--dump-user-agent').run.strip
   end
 end

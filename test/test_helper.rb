@@ -24,7 +24,7 @@ TEST_FORMAT = "5"
 TEST_GLOB = "nope*"
 
 def remove_downloaded_files
-  Dir.glob("**/nope*").each do |nope|
+  Dir.glob("**/*nope*").each do |nope|
     File.delete(nope)
   end
 end

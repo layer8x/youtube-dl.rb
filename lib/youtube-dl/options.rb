@@ -6,7 +6,11 @@ module YoutubeDL
     #
     # @param options [Hash] a hash of options
     def initialize(options={})
-      @store = options
+      if options.is_a? Hash
+        @store = options
+      else
+        @store = options.to_h
+      end
     end
 
     # Returns options as a hash
@@ -40,9 +44,8 @@ module YoutubeDL
     # Set options using a block
     #
     # @yield [config] self
-    # TODO: support calling without arguments
-    def configure(&block)
-      block.call(self)
+    def configure
+      yield(self) if block_given?
     end
 
     # Get option with brackets syntax
