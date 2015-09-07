@@ -40,9 +40,8 @@ module YoutubeDL
     # Set options using a block
     #
     # @yield [config] self
-    # TODO: support calling without arguments
-    def configure(&block)
-      block.arity < 1 ? instance_eval(&block) : block[self] 
+    def configure
+      yield(self) if block_given?
     end
 
     # Get option with brackets syntax
