@@ -11,6 +11,18 @@ describe YoutubeDL::Options do
       @options.sanitize_keys!
       assert_equal({key: 'value'}, @options.store)
     end
+
+    it 'should accept a parent Options as a param' do
+      parent = YoutubeDL::Options.new(parent_key: 'parent value')
+      child = YoutubeDL::Options.new(parent)
+      assert_equal parent.store, child.store
+    end
+
+    it 'should accept a Hash as a param' do
+      hash = {parent_key: 'parent value'}
+      options = YoutubeDL::Options.new(hash)
+      assert_equal hash, options.store
+    end
   end
 
   describe '.to_hash, .to_h' do
@@ -59,6 +71,16 @@ describe YoutubeDL::Options do
       assert @options.store[:get_operator], "Actual: #{@options.store[:get_operator]}"
       assert @options.store[:get_index], "Actual: #{@options.store[:get_index]}"
     end
+
+    it 'should not override parent configuration' do
+      opts = YoutubeDL::Options.new(parent: 'value')
+      opts.configure do |c|
+        c.child = 'vlaue'
+      end
+
+      assert_equal opts.store[:parent], 'value'
+      assert_equal opts.store[:child], 'vlaue'
+    end
   end
 
   describe '.[], .[]==' do
@@ -91,7 +113,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe 'manipulate_keys!' do
+  describe '.manipulate_keys!' do
     it 'should manipulate keys' do
       @options.some_key = 'value'
       @options.manipulate_keys! do |key|
@@ -101,7 +123,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe 'sanitize_keys!' do
+  describe '.sanitize_keys!' do
     it 'should convert hyphens to underscores in keys' do # See issue #9
       @options.store[:"hyphenated-key"] = 'value'
       @options.sanitize_keys!
@@ -109,7 +131,7 @@ describe YoutubeDL::Options do
     end
   end
 
-  describe 'sanitize_keys' do
+  describe '.sanitize_keys' do
     it 'should not modify the original by calling sanitize_keys without bang' do
       @options.store['some-key'] = "some_value"
       refute_equal @options.sanitize_keys, @options

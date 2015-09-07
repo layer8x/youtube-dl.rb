@@ -82,7 +82,7 @@ describe YoutubeDL::Video do
 
     it 'should not have any whitespace in the notes' do
       @formats.each do |format|
-        refute_nil format[:note].strip!
+        assert_nil format[:note].strip!
       end
     end
   end

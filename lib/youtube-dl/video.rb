@@ -41,7 +41,12 @@ module YoutubeDL
     #
     # @return [Array] Format list
     def formats
-      YoutubeDL::Output.new(cocaine_line("--list-formats #{quoted(url)}").run).formats
+      @formats ||= YoutubeDL::Output.new(cocaine_line("--list-formats #{quoted(url)}").run).supported_formats
+    end
+
+    # @return [String] Filename downloaded to
+    def filename
+      @filename ||= YoutubeDL::Output.new(@last_download_output).filename
     end
 
   private

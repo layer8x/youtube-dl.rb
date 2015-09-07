@@ -15,5 +15,24 @@ module YoutubeDL
       formats.shift # The first line is just headers
       formats.map { |format| format[:note].strip!; format } # Get rid of any trailing whitespace on the note.
     end
+
+    # Takes the output of a download
+    #
+    # @return [String] filename saved
+    def filename
+      # Check to see if file was already downloaded
+      if already_downloaded?
+        output.scan(/\[download\]\s(.*)\shas already been downloaded and merged/)[0][0]
+      else
+        output.scan(/Merging formats into \"(.*)\"/)[0][0]
+      end
+    end
+
+    # Takes the output of a download
+    #
+    # @return [Boolean] Has the file already been downloaded?
+    def already_downloaded?
+      output.include? 'has already been downloaded and merged'
+    end
   end
 end

@@ -10,14 +10,20 @@ module YoutubeDL
     # [YoutubeDL::Options] Options access.
     attr_accessor :options
 
+    # [String] Executable path
+    attr_reader :executable_path
+
+    # [String] Executable name to use
+    attr_accessor :executable
+
     # Command Line runner initializer
     #
     # @param url [String] URL to pass to youtube-dl executable
     # @param options [Hash, Options] options to pass to the executable. Automatically converted to Options if it isn't already
-    def initialize(url, executable = 'youtube-dl', options = {})
+    def initialize(url, options = {})
       @url = url
-      @options = YoutubeDL::Options.new(options.to_hash)
-      @executable = executable
+      @options = YoutubeDL::Options.new(options)
+      @executable = 'youtube-dl'
     end
 
     # Returns usable executable path for youtube-dl
@@ -65,10 +71,10 @@ module YoutubeDL
     # @return [String] commands ready to do cocaine
     def options_to_commands
       commands = []
-      options.sanitize_keys.each_paramized_key do |key, paramized_key|
-        if options[key].to_s == 'true'
+      @options.sanitize_keys.each_paramized_key do |key, paramized_key|
+        if @options[key].to_s == 'true'
           commands.push "--#{paramized_key}"
-        elsif options[key].to_s == 'false'
+        elsif @options[key].to_s == 'false'
           commands.push "--no-#{paramized_key}"
         else
           commands.push "--#{paramized_key} :#{key}"

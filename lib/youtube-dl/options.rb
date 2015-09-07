@@ -6,7 +6,11 @@ module YoutubeDL
     #
     # @param options [Hash] a hash of options
     def initialize(options={})
-      @store = options.to_hash
+      if options.is_a? Hash
+        @store = options
+      else
+        @store = options.to_h
+      end
     end
 
     # Returns options as a hash
