@@ -8,7 +8,7 @@ module YoutubeDL
       # WARNING: This shit won't be documented or even properly tested. It's almost 3 in the morning and I have no idea what I'm doing.
       header_index = output.index('format code')
       return nil if header_index.nil?
-      
+
       formats = []
       output.slice(header_index..-1).split("\n").each do |line|
         format = {}
@@ -31,7 +31,7 @@ module YoutubeDL
       if already_downloaded?
         output.scan(/\[download\]\s(.*)\shas already been downloaded and merged/)[0][0]
       else
-        output.scan(/Merging formats into \"(.*)\"/)[0][0]
+        output.scan(/\[download\] Destination:\s(.*)$/)[0][0]
       end
     rescue NoMethodError # There wasn't a match somewhere. Kill it with fire
       nil
