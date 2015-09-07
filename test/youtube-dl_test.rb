@@ -39,10 +39,18 @@ describe YoutubeDL do
   end
 
   describe '.extractors' do
-    it 'should return an Array of Strings' do
-      extractors = YoutubeDL.extractors
-      assert_instance_of Array, extractors
-      assert_instance_of String, extractors.first
+    before do
+      @extractors = YoutubeDL.extractors
+    end
+
+    it 'should return a Hash' do
+      assert_instance_of Array, @extractors
+    end
+
+    it 'should include the youtube extractors' do
+      ['youtube', 'youtube:channel', 'youtube:search', 'youtube:show', 'youtube:user', 'youtube:playlist'].each do |e|
+        assert_includes @extractors, e
+      end
     end
   end
 
