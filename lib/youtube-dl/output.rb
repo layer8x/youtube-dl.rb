@@ -6,14 +6,21 @@ module YoutubeDL
     # @return [Array] Array of supported formats
     def supported_formats
       # WARNING: This shit won't be documented or even properly tested. It's almost 3 in the morning and I have no idea what I'm doing.
+      header_index = output.index('format code')
+      return nil if header_index.nil?
+      
       formats = []
-      output.slice(output.index('format code')..-1).split("\n").each do |line|
+      output.slice(header_index..-1).split("\n").each do |line|
         format = {}
         format[:format_code], format[:extension], format[:resolution], format[:note] = line.scan(/\A(\d+)\s+(\w+)\s+(\S+)\s(.*)/)[0]
         formats.push format
       end
       formats.shift # The first line is just headers
-      formats.map { |format| format[:note].strip!; format } # Get rid of any trailing whitespace on the note.
+      formats.map do |format|
+        format[:note].strip! # Get rid of any trailing whitespace on the note.
+        format[:format_code] = format[:format_code].to_i # convert format code to integer
+        format
+      end
     end
 
     # Takes the output of a download
