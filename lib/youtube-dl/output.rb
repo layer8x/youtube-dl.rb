@@ -29,7 +29,7 @@ module YoutubeDL
     def filename
       # Check to see if file was already downloaded
       if already_downloaded?
-        output.scan(/\[download\]\s(.*)\shas already been downloaded and merged/)[0][0]
+        output.scan(/\[download\]\s(.*)\shas already been downloaded/)[0][0]
       else
         if output.include? 'Merging formats into'
           output.scan(/Merging formats into \"(.*)\"/)[0][0]
@@ -45,7 +45,7 @@ module YoutubeDL
     #
     # @return [Boolean] Has the file already been downloaded?
     def already_downloaded?
-      output.include? 'has already been downloaded and merged'
+      output.include? 'has already been downloaded'
     end
   end
 end
