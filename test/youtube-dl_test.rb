@@ -59,4 +59,18 @@ describe YoutubeDL do
       assert_match /\d+.\d+.\d+\z/, @version
     end
   end
+
+  describe '.user_agent' do
+    before do
+      @user_agent = YoutubeDL.user_agent
+    end
+
+    it 'should return a string' do
+      assert_instance_of String, @user_agent
+    end
+
+    it 'should be a specific format with no newlines' do
+      assert_match /Mozilla\/5\.0\s.*\)\z/, @user_agent
+    end
+  end
 end
