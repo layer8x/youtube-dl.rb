@@ -65,6 +65,8 @@ module YoutubeDL
       options.sanitize_keys.each_paramized_key do |key, paramized_key|
         if options[key].to_s == 'true'
           commands.push "--#{paramized_key}"
+        elsif options[key].to_s == 'false'
+          commands.push "--no-#{paramized_key}"
         else
           commands.push "--#{paramized_key} :#{key}"
         end
