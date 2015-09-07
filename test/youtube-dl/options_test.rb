@@ -38,15 +38,6 @@ describe YoutubeDL::Options do
     assert @options.store[:get_index], "Actual: #{@options.store[:get_index]}"
   end
 
-  # Broken.
-  # it 'should be able to use an implicit configuration block' do
-  #   @options.configure do
-  #     walrus = 'haswalrus'
-  #   end
-  #
-  #   assert_equal 'haswalrus', @options.store[:walrus]
-  # end
-
   it 'should automatically symbolize keys' do
     @options.get_operator = true
     @options['get_index'] = true
