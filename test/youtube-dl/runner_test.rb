@@ -68,7 +68,7 @@ describe YoutubeDL::Runner do
       assert_includes formats.last, key
     end
   end
-  
+
   it 'should handle strangely-formatted options correctly' do # See issue #9
     options = {
       format: 'bestaudio',
@@ -79,5 +79,17 @@ describe YoutubeDL::Runner do
 
     @runner.options = YoutubeDL::Options.new(options)
     assert_match /youtube-dl --format 'bestaudio' --prefer-ffmpeg --extract-audio --audio-format 'mp3'/, @runner.to_command
+  end
+
+  it 'should handle true boolean values' do
+    @runner.options.truthy_value = true
+
+    assert_match /youtube-dl .*--truthy-value\s--|\"http.*/, @runner.to_command
+  end
+
+  it 'should handle false boolean values' do
+    @runner.options.false_value = false
+
+    assert_match /youtube-dl .*--no-false-value\s--|\"http.*/, @runner.to_command
   end
 end
