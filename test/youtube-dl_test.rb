@@ -43,7 +43,7 @@ describe YoutubeDL do
       @extractors = YoutubeDL.extractors
     end
 
-    it 'should return a Hash' do
+    it 'should return an Array' do
       assert_instance_of Array, @extractors
     end
 
