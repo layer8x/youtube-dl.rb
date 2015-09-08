@@ -1,5 +1,9 @@
 module YoutubeDL
+  
+  # Option and configuration getting, setting, and storage, and all that
   class Options
+
+    # [Hash] key value storage object
     attr_accessor :store
 
     # Options initializer

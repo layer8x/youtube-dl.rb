@@ -1,3 +1,5 @@
+require 'cocaine'
+
 require 'youtube-dl/version'
 require 'youtube-dl/support'
 require 'youtube-dl/options'
@@ -5,6 +7,7 @@ require 'youtube-dl/output'
 require 'youtube-dl/runner'
 require 'youtube-dl/video'
 
+# Global YoutubeDL module. Contains some convenience methods and all of the business classes.
 module YoutubeDL
   extend self
   extend Support

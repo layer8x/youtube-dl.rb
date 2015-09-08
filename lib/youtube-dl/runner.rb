@@ -1,6 +1,6 @@
-require 'cocaine'
-
 module YoutubeDL
+  
+  # Utility class for running and managing youtube-dl
   class Runner
     include YoutubeDL::Support
 

@@ -1,5 +1,8 @@
 module YoutubeDL
+
   # A class of voodoo methods for parsing youtube-dl output
+  #
+  # @param output [String] Whatever youtube-dl spat out.
   class Output < Struct.new(:output)
     # Takes the output of '--list-formats'
     #

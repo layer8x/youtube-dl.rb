@@ -1,5 +1,6 @@
 module YoutubeDL
-  # Video model
+
+  # Video model for using and downloading a single video. 
   class Video < Runner
     class << self
       # Instantiate a new Video model and download the video

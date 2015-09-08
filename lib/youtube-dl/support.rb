@@ -1,6 +1,7 @@
 module YoutubeDL
+  
+  # Some support methods and glue logic.
   module Support
-    # Some support methods and glue logic.
 
     # Returns a usable youtube-dl executable (system or vendor)
     #
