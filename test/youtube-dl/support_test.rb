@@ -55,4 +55,10 @@ describe YoutubeDL::Support do
       assert_equal "\"#{TEST_URL}\"", @klass.quoted(TEST_URL)
     end
   end
+
+  describe '#which' do
+    it 'should find a proper executable' do
+      assert File.exists?(@klass.which('ls'))
+    end
+  end
 end

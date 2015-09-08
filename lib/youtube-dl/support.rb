@@ -1,5 +1,5 @@
 module YoutubeDL
-  
+
   # Some support methods and glue logic.
   module Support
 
@@ -8,14 +8,14 @@ module YoutubeDL
     # @param exe [String] Executable to search for
     # @return [String] executable path
     def usable_executable_path_for(exe)
-      system_path = `which #{exe} 2> /dev/null` # This will currently only work on Unix systems. TODO: Add Windows support
-      if $?.exitstatus == 0 # $? is an object with information on that last command run with backticks.
-        system_path.strip
-      else
+      system_path = which(exe)
+      if system_path.nil?
         # TODO: Search vendor bin for executable before just saying it's there.
         vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/#{exe}")
         File.chmod(775, vendor_path) unless File.executable?(vendor_path) # Make sure vendor binary is executable
         vendor_path
+      else
+        system_path.strip
       end
     end
 
@@ -37,6 +37,24 @@ module YoutubeDL
     # @return [String] Quoted URL
     def quoted(url)
       "\"#{url}\""
+    end
+
+    # Cross-platform way of finding an executable in the $PATH.
+    # Stolen from http://stackoverflow.com/a/5471032
+    #
+    #   which('ruby') #=> /usr/bin/ruby
+    #
+    # @param cmd [String] cmd to search for
+    # @return [String] full path for the cmd
+    def which(cmd)
+      exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+        exts.each { |ext|
+          exe = File.join(path, "#{cmd}#{ext}")
+          return exe if File.executable?(exe) && !File.directory?(exe)
+        }
+      end
+      return nil
     end
   end
 end
