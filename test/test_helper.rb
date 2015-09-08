@@ -14,6 +14,7 @@ require 'minitest/spec'
 require 'purdytest' # minitest-colorize is broken in minitest version 5
 require 'pry'
 require 'fileutils'
+require 'yaml'
 
 require 'youtube-dl'
 
