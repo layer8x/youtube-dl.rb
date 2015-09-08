@@ -14,6 +14,7 @@ require 'minitest/spec'
 require 'purdytest' # minitest-colorize is broken in minitest version 5
 require 'pry'
 require 'fileutils'
+require 'yaml'
 
 require 'youtube-dl'
 
@@ -27,4 +28,12 @@ def remove_downloaded_files
   Dir.glob("**/*nope*").each do |nope|
     File.delete(nope)
   end
+end
+
+def fixture(*keys)
+  @fixtures ||= YAML.load(File.read(File.join(File.dirname(__FILE__), 'fixtures.yml')))
+
+  last_path = @fixtures
+  keys.each { |key| last_path = last_path[key] }
+  last_path
 end
