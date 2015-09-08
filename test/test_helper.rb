@@ -28,3 +28,11 @@ def remove_downloaded_files
     File.delete(nope)
   end
 end
+
+def fixture(*keys)
+  @fixtures ||= YAML.load(File.read(File.join(File.dirname(__FILE__), 'fixtures.yml')))
+
+  last_path = @fixtures
+  keys.each { |key| last_path = last_path[key] }
+  last_path
+end
