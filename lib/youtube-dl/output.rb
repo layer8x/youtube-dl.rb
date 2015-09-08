@@ -1,10 +1,18 @@
 module YoutubeDL
 
   # A class of voodoo methods for parsing youtube-dl output
-  class Output < Struct.new(:output)
+  class Output 
 
     # [String] Whatever youtube-dl spat out.
     attr_accessor :output
+
+    # Initialize output parser
+    #
+    # @param [String] Whatever youtube-dl spat out.
+    # @return [YoutubeDL::Output] self
+    def initialize(output)
+      @output = output
+    end
 
     # Takes the output of '--list-formats'
     #
