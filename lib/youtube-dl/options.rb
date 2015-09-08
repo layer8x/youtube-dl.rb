@@ -1,5 +1,5 @@
 module YoutubeDL
-  
+
   # Option and configuration getting, setting, and storage, and all that
   class Options
 
@@ -69,6 +69,11 @@ module YoutubeDL
     end
 
     # Option getting and setting using ghost methods
+    #
+    # @param method [Symbol] method name
+    # @param args [Array] list of arguments passed
+    # @param block [Proc] implicit block given
+    # @return [Object] the value of method in the options store
     def method_missing(method, *args, &block)
       if method.to_s.include? '='
         method = method.to_s.tr('=', '').to_sym

@@ -1,5 +1,5 @@
 module YoutubeDL
-  
+
   # Utility class for running and managing youtube-dl
   class Runner
     include YoutubeDL::Support
@@ -42,7 +42,7 @@ module YoutubeDL
 
     # Sets Cocaine's runner engine
     #
-    # @param [CommandLineRunner] backend runner class
+    # @param cocaine_runner [CommandLineRunner] backend runner class
     # @return [Object] whatever Cocaine::CommandLine.runner= returns.
     def backend_runner=(cocaine_runner)
       Cocaine::CommandLine.runner = cocaine_runner
