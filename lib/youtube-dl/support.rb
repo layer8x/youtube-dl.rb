@@ -1,5 +1,5 @@
 module YoutubeDL
-  
+
   # Some support methods and glue logic.
   module Support
 
@@ -37,6 +37,24 @@ module YoutubeDL
     # @return [String] Quoted URL
     def quoted(url)
       "\"#{url}\""
+    end
+
+    # Cross-platform way of finding an executable in the $PATH.
+    # Stolen from http://stackoverflow.com/a/5471032
+    #
+    #   which('ruby') #=> /usr/bin/ruby
+    #
+    # @param cmd [String] cmd to search for
+    # @return [String] full path for the cmd
+    def which(cmd)
+      exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+        exts.each { |ext|
+          exe = File.join(path, "#{cmd}#{ext}")
+          return exe if File.executable?(exe) && !File.directory?(exe)
+        }
+      end
+      return nil
     end
   end
 end
