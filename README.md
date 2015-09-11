@@ -14,7 +14,7 @@ Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
 
 ## Install the gem
 
-**IMPORTANT NOTE:** The [`youtube_dl`](https://github.com/ystomar-work/youtube_dl) and the [`ruby-youtube-dl`](https://github.com/bnmrrs/ruby-youtube-dl) will [cause a conflict](https://github.com/layer8x/youtube-dl.rb/issues/24). Please `gem uninstall` those gems before using this one.
+**IMPORTANT NOTE:** The [`youtube_dl`](https://github.com/ystomar-work/youtube_dl) gem and the [`ruby-youtube-dl`](https://github.com/bnmrrs/ruby-youtube-dl) gem will [cause a conflict](https://github.com/layer8x/youtube-dl.rb/issues/24) with this gem. Please `gem uninstall` those gems before using this one.
 
 Add this line to your application's Gemfile:
 
