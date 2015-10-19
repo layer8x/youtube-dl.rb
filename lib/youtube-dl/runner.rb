@@ -4,16 +4,16 @@ module YoutubeDL
   class Runner
     include YoutubeDL::Support
 
-    # [String] URL to download
+    # @return [String] URL to download
     attr_accessor :url
 
-    # [YoutubeDL::Options] Options access.
+    # @return [YoutubeDL::Options] Options access.
     attr_accessor :options
 
-    # [String] Executable path
+    # @return [String] Executable path
     attr_reader :executable_path
 
-    # [String] Executable name to use
+    # @return [String] Executable name to use
     attr_accessor :executable
 
     # Command Line runner initializer

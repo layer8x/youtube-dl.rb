@@ -16,11 +16,10 @@ module YoutubeDL
         video.download
         video
       end
-      
       alias_method :get, :download
     end
 
-    # [YoutubeDL::Options] Download Options for the last download
+    # @return [YoutubeDL::Options] Download Options for the last download
     attr_reader :download_options
 
     # Instantiate new model

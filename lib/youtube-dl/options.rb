@@ -3,7 +3,7 @@ module YoutubeDL
   # Option and configuration getting, setting, and storage, and all that
   class Options
 
-    # [Hash] key value storage object
+    # @return [Hash] key value storage object
     attr_accessor :store
 
     # Options initializer
@@ -28,6 +28,7 @@ module YoutubeDL
     # Iterate through the paramized keys and values.
     #
     # @yield [paramized_key, value]
+    # @return [Object] @store
     #
     # TODO: Enumerable?
     def each_paramized
@@ -39,6 +40,7 @@ module YoutubeDL
     # Iterate through the keys and their paramized counterparts.
     #
     # @yield [key, paramized_key]
+    # @return [Object] @store
     def each_paramized_key
       @store.each_key do |key|
         yield(key, paramize(key))
@@ -64,6 +66,7 @@ module YoutubeDL
     #
     # @param key [Object] key
     # @param value [Object] value
+    # @return [Object] whatever Hash#= returns
     def []=(key, value)
       @store[key.to_sym] = value
     end
@@ -100,6 +103,8 @@ module YoutubeDL
     end
 
     # Symbolizes and sanitizes keys in the option store
+    #
+    # @return [Object] @store
     def sanitize_keys!
       # Symbolize
       manipulate_keys! { |key_name| key_name.is_a?(Symbol) ? key_name : key_name.to_sym }

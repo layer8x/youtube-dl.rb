@@ -3,7 +3,7 @@ module YoutubeDL
   # A class of voodoo methods for parsing youtube-dl output
   class Output
 
-    # [String] Whatever youtube-dl spat out.
+    # @return [String] Whatever youtube-dl spat out.
     attr_accessor :output
 
     # Initialize output parser
