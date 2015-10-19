@@ -57,7 +57,7 @@ module YoutubeDL
     # Add in other default options here.
     def runner_options
       {
-        no_color: true
+        color: false
       }.merge(@options)
     end
   end
