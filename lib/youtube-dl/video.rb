@@ -48,6 +48,8 @@ module YoutubeDL
       @formats ||= YoutubeDL::Output.new(cocaine_line("--list-formats #{quoted(url)}").run).supported_formats
     end
 
+    # Parses the last downloaded output for a filename and returns it.
+    #
     # @return [String] Filename downloaded to
     def filename
       @filename ||= YoutubeDL::Output.new(@last_download_output).filename
