@@ -58,6 +58,7 @@ module YoutubeDL
     def runner_options
       {
         color: false
+        progress: false
       }.merge(@options)
     end
   end
