@@ -73,4 +73,14 @@ describe YoutubeDL::Runner do
       assert File.exists? TEST_FILENAME
     end
   end
+
+  describe '#configure' do
+    it 'should update configuration options' do
+      @runner.configure do |c|
+        c.output = TEST_FILENAME
+      end
+
+      assert_equal TEST_FILENAME, @runner.options.output
+    end
+  end
 end

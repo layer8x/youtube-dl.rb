@@ -64,6 +64,14 @@ module YoutubeDL
     end
     alias_method :download, :run
 
+    # Options configuration.
+    # Just aliases to options.configure
+    #
+    # @yield [config] options
+    def configure(*a, &b)
+      options.configure(*a, &b)
+    end
+
   private
 
     # Parses options and converts them to Cocaine's syntax
