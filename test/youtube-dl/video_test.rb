@@ -88,4 +88,17 @@ describe YoutubeDL::Video do
       end
     end
   end
+
+  describe '#filename' do
+    before do
+      @video.options.configure do |c|
+        c.output = TEST_FILENAME
+      end
+    end
+
+    it 'should be able to get the filename from the output' do
+      @video.download
+      assert_equal TEST_FILENAME, @video.filename
+    end
+  end
 end
