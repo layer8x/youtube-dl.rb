@@ -1,15 +1,13 @@
 module YoutubeDL
-
   # Option and configuration getting, setting, and storage, and all that
   class Options
-
     # @return [Hash] key value storage object
     attr_accessor :store
 
     # Options initializer
     #
     # @param options [Hash] a hash of options
-    def initialize(options={})
+    def initialize(options = {})
       if options.is_a? Hash
         @store = options
       else
@@ -77,7 +75,7 @@ module YoutubeDL
     # @param args [Array] list of arguments passed
     # @param block [Proc] implicit block given
     # @return [Object] the value of method in the options store
-    def method_missing(method, *args, &block)
+    def method_missing(method, *args, &_block)
       if method.to_s.include? '='
         method = method.to_s.tr('=', '').to_sym
         @store[method] = args.first
@@ -117,18 +115,19 @@ module YoutubeDL
     #
     # @return [YoutubeDL::Options] Options with sanitized keys.
     def sanitize_keys
-      safe_copy = self.dup
+      safe_copy = dup
       safe_copy.sanitize_keys!
       safe_copy
     end
 
     private
+
     # Helper function to convert option keys into command-line-friendly parameters
     #
     # @param key [Symbol, String] key to paramize
     # @return [String] paramized key
     def paramize(key)
-      key.to_s.tr("_", '-')
+      key.to_s.tr('_', '-')
     end
   end
 end

@@ -17,7 +17,7 @@ module YoutubeDL
   # @param urls [String, Array] URLs to download
   # @param options [Hash] Downloader options
   # @return [YoutubeDL::Video, Array] Video model or array of Video models
-  def download(urls, options={})
+  def download(urls, options = {})
     if urls.is_a? Array
       urls.map { |url| YoutubeDL::Video.get(url, options) }
     else

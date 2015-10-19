@@ -1,5 +1,4 @@
 module YoutubeDL
-
   # Video model for using and downloading a single video.
   class Video < Runner
     class << self
@@ -11,7 +10,7 @@ module YoutubeDL
       # @param url [String] URL to use and download
       # @param options [Hash] Options to pass in
       # @return [YoutubeDL::Video] new Video model
-      def download(url, options={})
+      def download(url, options = {})
         video = new(url, options)
         video.download
         video
@@ -26,7 +25,7 @@ module YoutubeDL
     #
     # @param url [String] URL to initialize with
     # @param options [Hash] Options to populate the everything with
-    def initialize(url, options={})
+    def initialize(url, options = {})
       @url = url
       @options = YoutubeDL::Options.new(options)
     end
@@ -54,7 +53,8 @@ module YoutubeDL
       @filename ||= YoutubeDL::Output.new(@last_download_output).filename
     end
 
-  private
+    private
+
     # Add in other default options here.
     def runner_options
       {

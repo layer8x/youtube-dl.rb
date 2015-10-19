@@ -1,5 +1,4 @@
 module YoutubeDL
-
   # Utility class for running and managing youtube-dl
   class Runner
     include YoutubeDL::Support
@@ -74,7 +73,7 @@ module YoutubeDL
       options.configure(*a, &b)
     end
 
-  private
+    private
 
     # Parses options and converts them to Cocaine's syntax
     #
