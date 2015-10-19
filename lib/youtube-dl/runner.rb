@@ -68,6 +68,8 @@ module YoutubeDL
     # Just aliases to options.configure
     #
     # @yield [config] options
+    # @param a [Array] arguments to pass to options#configure
+    # @param b [Proc] block to pass to options#configure
     def configure(*a, &b)
       options.configure(*a, &b)
     end

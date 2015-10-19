@@ -16,7 +16,7 @@ module YoutubeDL
         video.download
         video
       end
-
+      
       alias_method :get, :download
     end
 
