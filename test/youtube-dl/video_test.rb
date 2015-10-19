@@ -66,7 +66,9 @@ describe YoutubeDL::Video do
     end
 
     it 'should be an Array of Hashes' do
-      assert_instance_of Hash, @formats.first
+      @formats.each do |f|
+        assert_instance_of Hash, f
+      end
     end
 
     it 'should have a hash size of 4' do
