@@ -1,6 +1,7 @@
 before_install:
   - sudo chmod 755 ./vendor/bin/youtube-dl
-  - sudo apt-get install ffmpeg
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq ffmpeg
 rvm:
   - 1.9.3 # EOL, but still supporting
   - 2.0.0 # Oldest stable
