@@ -33,18 +33,21 @@ describe YoutubeDL::Output do
       @parser_download = YoutubeDL::Output.new(fixture(:output, :download))
       @parser_download_ffmpeg = YoutubeDL::Output.new(fixture(:output, :download_ffmpeg))
       @parser_download_exists = YoutubeDL::Output.new(fixture(:output, :download_exists))
+      @parser_download_audio = YoutubeDL::Output.new(fixture(:output, :download_audio))
     end
 
     it 'should find a match given the correct output' do
       refute_nil @parser_download.filename
       refute_nil @parser_download_ffmpeg.filename
       refute_nil @parser_download_exists.filename
+      refute_nil @parser_download_audio.filename
     end
 
     it 'should find the correct match' do
       assert_equal 'nope.avi-gvdf5n-zI14.mp4', @parser_download.filename
       assert_equal 'nope.avi-gvdf5n-zI14.mp4', @parser_download_ffmpeg.filename
       assert_equal 'nope.avi-gvdf5n-zI14.mp4', @parser_download_exists.filename
+      assert_equal 'nope-gvdf5n-zI14.mp3', @parser_download_audio.filename
     end
 
     it 'should return nil if no match or wrong log format' do
