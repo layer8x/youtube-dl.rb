@@ -46,6 +46,8 @@ module YoutubeDL
           output.scan(/Merging formats into \"(.*)\"/)[0][0]
         elsif output.include? '[ffmpeg] Destination:'
           output.scan(/\[ffmpeg\] Destination:\s(.*)$/)[0][0]
+        elsif output.include? '[avconv] Destination:'
+          output.scan(/\[avconv\] Destination:\s(.*)$/)[0][0]
         else
           output.scan(/\[download\] Destination:\s(.*)$/)[0][0]
         end
