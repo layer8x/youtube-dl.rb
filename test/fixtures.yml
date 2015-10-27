@@ -29,6 +29,17 @@
     [youtube] gvdf5n-zI14: Downloading DASH manifest
     [download] nope.avi-gvdf5n-zI14.mp4 has already been downloaded
     [download] 100% of 1.31MiB
+  :download_audio: |
+    [youtube] gvdf5n-zI14: Downloading webpage
+    [youtube] gvdf5n-zI14: Downloading video info webpage
+    [youtube] gvdf5n-zI14: Extracting video information
+    [youtube] gvdf5n-zI14: Downloading DASH manifest
+    [youtube] gvdf5n-zI14: Downloading DASH manifest
+    [download] Destination: nope-gvdf5n-zI14.m4a
+    [download] Download completed
+    [ffmpeg] Correcting container in "nope-gvdf5n-zI14.m4a"
+    [ffmpeg] Destination: nope-gvdf5n-zI14.mp3
+    Deleting original file nope-gvdf5n-zI14.m4a (pass -k to keep)
   :list_formats: "[youtube] gvdf5n-zI14: Downloading webpage\n[youtube] gvdf5n-zI14:
     Downloading video info webpage\n[youtube] gvdf5n-zI14: Extracting video information\n[youtube]
     gvdf5n-zI14: Downloading DASH manifest\n[youtube] gvdf5n-zI14: Downloading DASH
