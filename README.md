@@ -33,6 +33,8 @@ Or install it yourself as:
 ## Install youtube-dl
 This gem ships with the latest (working) version of youtube-dl built-in, so you don't have to install youtube-dl at all! Unless you want to.
 
+Some features of youtube-dl require ffmpeg or avconf to be installed, but they are usually in your system's package manager. 
+
 ## Usage
 
 Pretty simple.
