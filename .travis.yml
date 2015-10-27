@@ -2,11 +2,11 @@ before_install:
   - sudo chmod 755 ./vendor/bin/youtube-dl
   - sudo apt-get install ffmpeg
 rvm:
-- 1.9.3 # EOL, but still supporting
-- 2.0.0 # Oldest stable
-- 2.2.3 # Current stable
-- jruby-head # JRuby
-- rbx-2 # Rubinius
+  - 1.9.3 # EOL, but still supporting
+  - 2.0.0 # Oldest stable
+  - 2.2.3 # Current stable
+  - jruby-head # JRuby
+  - rbx-2 # Rubinius
 
 notifications:
   slack: layer8x:cvixULdjCINfq7u9Zs1rS0VY
