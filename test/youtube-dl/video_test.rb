@@ -100,5 +100,15 @@ describe YoutubeDL::Video do
       @video.download
       assert_equal TEST_FILENAME, @video.filename
     end
+
+    it 'should give the correct filename when run through ffmpeg' do
+      @video.configure do |c|
+        c.output = '%(id)s.%(ext)s'
+        c.extract_audio = true
+        c.audio_format = 'mp3'
+      end
+      @video.download
+      assert_equal "#{TEST_ID}.mp3", @video.filename
+    end
   end
 end

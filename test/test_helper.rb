@@ -18,6 +18,7 @@ require 'yaml'
 
 require 'youtube-dl'
 
+TEST_ID = "gvdf5n-zI14"
 TEST_URL = "https://www.youtube.com/watch?feature=endscreen&v=gvdf5n-zI14"
 TEST_URL2 = "https://www.youtube.com/watch?v=Mt0PUjh-nDM"
 TEST_FILENAME = "nope.avi.mp4"
