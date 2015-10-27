@@ -44,12 +44,8 @@ module YoutubeDL
       else
         if output.include? 'Merging formats into'
           output.scan(/Merging formats into \"(.*)\"/)[0][0]
-        elsif output.include? '[ffmpeg] Destination:'
-          output.scan(/\[ffmpeg\] Destination:\s(.*)$/)[0][0]
-        elsif output.include? '[avconv] Destination:'
-          output.scan(/\[avconv\] Destination:\s(.*)$/)[0][0]
         else
-          output.scan(/\[download\] Destination:\s(.*)$/)[0][0]
+          output.scan(/\[.*\] Destination:\s(.*)$/).last.last
         end
       end
     rescue NoMethodError # There wasn't a match somewhere. Kill it with fire
