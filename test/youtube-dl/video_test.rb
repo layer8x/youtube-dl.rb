@@ -54,6 +54,16 @@ describe YoutubeDL::Video do
       @video.download
       assert_equal Dir.glob(TEST_GLOB).first, @video.filename
     end
+
+    it 'should raise ArgumentError if url is nil or empty' do
+      assert_raises ArgumentError do
+        YoutubeDL::Video.new(nil).download
+      end
+
+      assert_raises ArgumentError do
+        YoutubeDL::Video.new('').download
+      end
+    end
   end
 
   describe '#formats' do
@@ -101,7 +111,7 @@ describe YoutubeDL::Video do
       assert_equal TEST_FILENAME, @video.filename
     end
 
-    # Broken on Travis. Output test should be fine. 
+    # Broken on Travis. Output test should be fine.
     # it 'should give the correct filename when run through ffmpeg' do
     #   @video.configure do |c|
     #     c.output = 'nope-%(id)s.%(ext)s'

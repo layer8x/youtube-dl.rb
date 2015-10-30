@@ -32,6 +32,7 @@ module YoutubeDL
 
     # Download the video.
     def download
+      raise ArgumentError.new('url cannot be nil or empty') if url.empty? || url.nil?
       @download_options = YoutubeDL::Options.new(runner_options)
       @last_download_output = YoutubeDL::Runner.new(url, @download_options).run
     end
