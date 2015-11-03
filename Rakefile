@@ -24,4 +24,13 @@ namespace :binaries do
   task :version, [:ver] do |_t, a|
     get_binaries(a[:ver])
   end
+
+  desc 'Auto update binaries and increment version number'
+  task :update => :latest do
+    File.open('./lib/youtube-dl/version.rb', 'r+') do |f|
+      version_file = f.read
+      f.rewind
+      f.write version_file.gsub(/\d{4}\.\d{2}\.\d{2}/, `./vendor/bin/youtube-dl --version`.strip)
+    end
+  end
 end
