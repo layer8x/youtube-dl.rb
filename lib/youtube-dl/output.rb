@@ -27,6 +27,7 @@ module YoutubeDL
         formats.push format
       end
       formats.shift # The first line is just headers
+      return [] if formats.first.nil?
       formats.map do |format|
         format[:note].strip! # Get rid of any trailing whitespace on the note.
         format[:format_code] = format[:format_code].to_i # convert format code to integer
