@@ -1,6 +1,10 @@
 require_relative './test_helper'
 
 describe YoutubeDL do
+  it do
+    flunk if RUBY_PLATFORM == "java" # Intentionally fail on JRuby to test allowed failures
+  end
+
   describe '.download' do
     after do
       remove_downloaded_files
