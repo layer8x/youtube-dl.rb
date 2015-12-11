@@ -32,6 +32,6 @@ namespace :binaries do
       f.rewind
       f.write version_file.gsub(/\d{4}\.\d{2}\.\d{2}/, `./vendor/bin/youtube-dl --version`.strip)
     end
-    system("git commit -a -m 'Updated binaries to #{`./vendor/bin/youtube-dl --version`.strip}'")
+    abort unless system("git commit -a -m 'Updated binaries to #{`./vendor/bin/youtube-dl --version`.strip}'")
   end
 end
