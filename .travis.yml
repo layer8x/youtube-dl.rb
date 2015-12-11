@@ -9,9 +9,11 @@ rvm:
 - jruby-head # JRuby
 - rbx-2 # Rubinius
 
+cache: bundler
+
 matrix:
   allow_failures:
-    rvm: 
+    rvm:
     - jruby-head
 
 notifications:
