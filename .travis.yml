@@ -17,3 +17,4 @@ matrix:
 
 notifications:
   slack: layer8x:cvixULdjCINfq7u9Zs1rS0VY
+  email: false
