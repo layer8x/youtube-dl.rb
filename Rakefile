@@ -30,7 +30,7 @@ namespace :binaries do
     File.open('./lib/youtube-dl/version.rb', 'r+') do |f|
       version_file = f.read
       f.rewind
-      f.write version_file.gsub(/\d+\.\d+\.\d+\.?\d+?/, `./vendor/bin/youtube-dl --version`.strip)
+      f.write version_file.gsub(/\d{4}\.\d+\.\d+\.?\d+?/, `./vendor/bin/youtube-dl --version`.strip)
     end
     abort unless system("git commit -a -m 'Updated binaries to #{`./vendor/bin/youtube-dl --version`.strip}'")
   end
