@@ -1,5 +1,6 @@
 module YoutubeDL
   # Semantic Version as well as the bundled binary version.
   # "(semver)(pre-release)(binary-version)"
-  VERSION = '0.2.5.2016.02.09.1'
+  VERSION = '0.2.5.2016.02.10'
 end
+d
