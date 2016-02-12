@@ -62,7 +62,7 @@ module YoutubeDL
     # @return [Object] the value of method in the metadata store
     def method_missing(method, *args, &block)
       if information.has_key? method
-        information[method]
+        information.fetch(method)
       else
         super
       end
@@ -83,7 +83,11 @@ module YoutubeDL
       # Not using symbolize_names since we have some special keys.
       raw_information = JSON.parse(cocaine_line("--print-json #{quoted(url)}").run)
 
-      @information = symbolize_json(raw_information)
+      @information = symbolize_json(raw_information).each_key do |key|
+        self.class.send(:define_method, key) do
+          information.fetch(key)
+        end
+      end
     end
   end
 end

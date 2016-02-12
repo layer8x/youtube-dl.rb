@@ -109,7 +109,7 @@ describe YoutubeDL::Video do
   describe '#method_missing' do
     it 'should pull values from @information' do
       @video.information.each do |key, value|
-        assert_equal value, @video.send(key)
+        assert_equal(value, @video.send(key))
       end
     end
   end
