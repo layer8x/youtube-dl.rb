@@ -40,14 +40,6 @@ module YoutubeDL
 
     alias_method :get, :download
 
-    # Returns a list of supported formats for the video in the form of
-    # [{:format_code => '000', :extension => 'avi', :resolution => '320x240', :note => 'More details about the format'}]
-    #
-    # @return [Array] Format list
-    def formats
-      @formats ||= YoutubeDL::Output.new(cocaine_line("--list-formats #{quoted(url)}").run).supported_formats
-    end
-
     # Parses the last downloaded output for a filename and returns it.
     #
     # @return [String] Filename downloaded to
@@ -55,7 +47,23 @@ module YoutubeDL
       @filename ||= YoutubeDL::Output.new(@last_download_output).filename
     end
 
-    private
+    # Method missing for pulling metadata from @information
+    #
+    # @param method [Symbol] method name
+    # @param args [Array] list of arguments passed
+    # @param block [Proc] implicit block given
+    # @return [Object] the value of method in the metadata store
+    def method_missing(method, *args, &block)
+      get_information unless @information
+
+      if @information.has_key? method
+        @infomation[method]
+      else
+        super
+      end
+    end
+
+  private
 
     # Add in other default options here.
     def runner_options
@@ -63,6 +71,14 @@ module YoutubeDL
         color: false,
         progress: false
       }.merge(@options)
+    end
+
+    # Get information about the video
+    def get_information
+      # Not using symbolize_names since we have some special keys.
+      raw_information = JSON.parse(cocaine_line("--print-json #{quoted(url)}").run)
+
+      @information = symbolize_json(raw_information)
     end
   end
 end
