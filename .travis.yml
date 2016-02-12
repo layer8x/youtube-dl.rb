@@ -5,7 +5,7 @@ before_install:
 rvm:
 - 1.9.3 # EOL, but still supporting
 - 2.0.0 # Oldest stable
-- 2.2.3 # Current stable
+- 2.3.0 # Current stable
 - jruby-head # JRuby
 - rbx-2 # Rubinius
 
@@ -14,6 +14,8 @@ cache: bundler
 matrix:
   allow_failures:
   - rvm: jruby-head
+  - rvm: 1.9.3 # WHOOO 1.9.3
 
 notifications:
   slack: layer8x:cvixULdjCINfq7u9Zs1rS0VY
+  email: false
