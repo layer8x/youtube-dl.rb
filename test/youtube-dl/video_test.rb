@@ -66,39 +66,6 @@ describe YoutubeDL::Video do
     end
   end
 
-  describe '#formats' do
-    before do
-      @formats = @video.formats
-    end
-
-    it 'should be an Array' do
-      assert_instance_of Array, @formats
-    end
-
-    it 'should be an Array of Hashes' do
-      @formats.each do |f|
-        assert_instance_of Hash, f
-      end
-    end
-
-    it 'should have a hash size of 4' do
-      assert_equal 4, @formats.first.size
-    end
-
-    it 'should include the correct information' do
-      [:format_code, :resolution, :extension, :note].each do |key|
-        assert_includes @formats.first, key
-        assert_includes @formats.last, key
-      end
-    end
-
-    it 'should not have any whitespace in the notes' do
-      @formats.each do |format|
-        assert_nil format[:note].strip!
-      end
-    end
-  end
-
   describe '#filename' do
     before do
       @video.options.configure do |c|
@@ -121,5 +88,29 @@ describe YoutubeDL::Video do
     #   @video.download
     #   assert_equal "nope-#{TEST_ID}.mp3", @video.filename
     # end
+  end
+
+  describe '#information' do
+    before do
+      @information = @video.information
+    end
+
+    it 'should be a Hash' do
+      assert_instance_of Hash, @infomation
+    end
+
+    it 'should be symbolized' do
+      @information.each_key do |f|
+        assert_instance_of Symbol, f
+      end
+    end
+  end
+
+  describe '#method_missing' do
+    it 'should pull values from @information' do
+      @video.information.each do |key, value|
+        assert_equal value, @video.send(key)
+      end
+    end
   end
 end

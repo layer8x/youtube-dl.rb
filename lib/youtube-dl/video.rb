@@ -47,6 +47,13 @@ module YoutubeDL
       @filename ||= YoutubeDL::Output.new(@last_download_output).filename
     end
 
+    # attr_reader for metadata
+    #
+    # @return [Hash] metadata information
+    def information
+      @information || get_information
+    end
+
     # Method missing for pulling metadata from @information
     #
     # @param method [Symbol] method name
@@ -54,10 +61,8 @@ module YoutubeDL
     # @param block [Proc] implicit block given
     # @return [Object] the value of method in the metadata store
     def method_missing(method, *args, &block)
-      get_information unless @information
-
-      if @information.has_key? method
-        @infomation[method]
+      if information.has_key? method
+        infomation[method]
       else
         super
       end
