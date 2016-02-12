@@ -3,16 +3,23 @@ before_install:
 - sudo apt-get update -qq
 
 rvm:
-- 2.0.0 # Oldest stable
+- 2.0.0 # Too old stable
+- 2.1.8 # Old stable
+- 2.2.4 # Previous Stable
 - 2.3.0 # Current stable
-- jruby-head # JRuby
-- rbx-2 # Rubinius
+- ruby-head # MRI head
+- jruby # JRuby stable
+- jruby-head # JRuby Head
+- rbx-2 # Rubinius stable
+- rbx-head # Rubinius head
 
 cache: bundler
 
 matrix:
   allow_failures:
+  - rvm: jruby
   - rvm: jruby-head
+  - rvm: rbx-head
 
 notifications:
   slack: layer8x:cvixULdjCINfq7u9Zs1rS0VY
