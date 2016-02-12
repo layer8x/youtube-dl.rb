@@ -54,5 +54,34 @@ module YoutubeDL
       end
       nil
     end
+
+    # Custom implementation of symbolize_names so it won't symbolize things like HTTP headers.
+    #
+    # @param unsymbolized_hash [Hash] hash to symbolize
+    # @return [Hash] hash with symbolized keys
+    def symbolize_json(unsymbolized_hash)
+      {}.tap do |new_hash|
+        unsymbolized_hash.each do |key, value|
+          if key[0] =~ /[a-z]/ # Is key capitalized?
+            new_hash[key.to_sym] = _transform_object(value)
+          else
+            new_hash[key] = _transform_object(value)
+          end
+        end
+      end
+    end
+
+    # :nodoc:
+    # Helper for symbolize_json
+    def _transform_object(value)
+      case value
+      when Hash
+        symbolize_json(value)
+      when Array
+        value.map { |v| _transform_object(v) }
+      else
+        value
+      end
+    end
   end
 end

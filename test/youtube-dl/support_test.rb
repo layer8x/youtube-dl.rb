@@ -61,4 +61,14 @@ describe YoutubeDL::Support do
       assert File.exists?(@klass.which('ls'))
     end
   end
+
+  describe '#symbolize_json' do
+    it 'should symbolize keys' do
+      assert_equal {:wew => 'lad'}, @klass.symbolize_json({"wew" => "lad"})
+    end
+
+    it 'should not symbolize capitalized keys' do
+      assert_equal {"No-Man" => "don't capitalize this plz", :but => "Do capitalize this"}, @klass.symbolize_json({"No-Man" => "don't capitalize this plz", "but" => "Do capitalize this"})
+    end
+  end
 end
