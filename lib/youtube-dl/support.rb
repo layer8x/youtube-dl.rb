@@ -62,7 +62,7 @@ module YoutubeDL
     def symbolize_json(unsymbolized_hash)
       {}.tap do |new_hash|
         unsymbolized_hash.each do |key, value|
-          if key[0] =~ /[a-z]/ # Is key capitalized?
+          if key[0] =~ /[a-z]|_/ # Is key capitalized?
             new_hash[key.to_sym] = _transform_object(value)
           else
             new_hash[key] = _transform_object(value)
