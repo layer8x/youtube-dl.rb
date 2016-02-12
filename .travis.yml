@@ -12,7 +12,6 @@ rvm:
 - jruby-9.0.4.0 # JRuby 9k series
 - jruby-head # JRuby Head
 - rbx-2 # Rubinius stable
-- rbx-head # Rubinius head
 
 cache: bundler
 
@@ -20,7 +19,6 @@ matrix:
   allow_failures:
   - rvm: jruby
   - rvm: jruby-head
-  - rvm: rbx-head
 
 notifications:
   slack: layer8x:cvixULdjCINfq7u9Zs1rS0VY
