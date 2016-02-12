@@ -96,7 +96,7 @@ describe YoutubeDL::Video do
     end
 
     it 'should be a Hash' do
-      assert_instance_of Hash, @infomation
+      assert_instance_of Hash, @information
     end
 
     it 'should be symbolized' do
