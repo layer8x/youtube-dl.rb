@@ -61,6 +61,7 @@ module YoutubeDL
     # @param block [Proc] implicit block given
     # @return [Object] the value of method in the metadata store
     def method_missing(method, *args, &block)
+      get_information unless @information
       if @information.has_key? method
         @information.fetch(method)
       else
@@ -83,10 +84,11 @@ module YoutubeDL
       # Not using symbolize_names since we have some special keys.
       raw_information = JSON.parse(cocaine_line("--print-json #{quoted(url)}").run)
 
-      @information = symbolize_json(raw_information).each_key do |key|
+      @information = symbolize_json(raw_information)
+      @information.each_key do |key|
         self.class.send(:define_method, key) do
-          information.fetch(key)
-        end
+          @information.fetch(key)
+        end unless self.class.instance_methods(false).include? key
       end
     end
   end
