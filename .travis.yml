@@ -8,7 +8,8 @@ rvm:
 - 2.2.4 # Previous Stable
 - 2.3.0 # Current stable
 - ruby-head # MRI head
-- jruby # JRuby stable
+- jruby # JRuby RVM default
+- jruby-9.0.4.0 # JRuby 9k series
 - jruby-head # JRuby Head
 - rbx-2 # Rubinius stable
 - rbx-head # Rubinius head
