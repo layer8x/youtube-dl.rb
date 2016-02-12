@@ -64,11 +64,14 @@ describe YoutubeDL::Support do
 
   describe '#symbolize_json' do
     it 'should symbolize keys' do
-      assert_equal {:wew => 'lad'}, @klass.symbolize_json({"wew" => "lad"})
+      assert_equal({:wew => 'lad'}, @klass.symbolize_json({"wew" => "lad"}))
     end
 
     it 'should not symbolize capitalized keys' do
-      assert_equal {"No-Man" => "don't capitalize this plz", :but => "Do capitalize this"}, @klass.symbolize_json({"No-Man" => "don't capitalize this plz", "but" => "Do capitalize this"})
+      original = {"No-Man" => "don't capitalize this plz", "but" => "Do capitalize this"}
+      expected = {"No-Man" => "don't capitalize this plz", :but => "Do capitalize this"}
+      
+      assert_equal(expected, @klass.symbolize_json(original))
     end
   end
 end
