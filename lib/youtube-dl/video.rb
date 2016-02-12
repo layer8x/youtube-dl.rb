@@ -51,7 +51,7 @@ module YoutubeDL
     #
     # @return [Hash] metadata information
     def information
-      @information || get_information
+      @information ||= get_information
     end
 
     # Method missing for pulling metadata from @information
@@ -61,8 +61,8 @@ module YoutubeDL
     # @param block [Proc] implicit block given
     # @return [Object] the value of method in the metadata store
     def method_missing(method, *args, &block)
-      if information.has_key? method
-        information.fetch(method)
+      if @information.has_key? method
+        @information.fetch(method)
       else
         super
       end
