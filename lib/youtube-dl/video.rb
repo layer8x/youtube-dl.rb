@@ -62,7 +62,7 @@ module YoutubeDL
     # @return [Object] the value of method in the metadata store
     def method_missing(method, *args, &block)
       if information.has_key? method
-        infomation[method]
+        information[method]
       else
         super
       end
