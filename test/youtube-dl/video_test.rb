@@ -78,6 +78,21 @@ describe YoutubeDL::Video do
       assert_equal TEST_FILENAME, @video.filename
     end
 
+    it 'should be able to be predicted' do
+      predicted_filename = @video.information[:_filename]
+      @video.download
+      assert_equal predicted_filename, @video.filename
+    end
+
+    it 'should not return previously predicted filename' do
+      predicted_filename = @video.information[:_filename]
+      @video.configure do |c|
+        c.output = "#{TEST_FILENAME}.2"
+      end
+      @video.download
+      refute_equal @video.filename, predicted_filename
+    end
+
     # Broken on Travis. Output test should be fine.
     it 'should give the correct filename when run through ffmpeg' do
       skip if travis_ci?
@@ -96,21 +111,25 @@ describe YoutubeDL::Video do
       @information = @video.information
     end
 
-    it 'should be a Hash' do
-      assert_instance_of Hash, @information
-    end
-
-    it 'should be symbolized' do
-      @information.each_key do |f|
-        assert_instance_of Symbol, f
-      end
+    it 'should be an OpenStruct' do
+      assert_instance_of OpenStruct, @information
     end
   end
 
   describe '#method_missing' do
     it 'should pull values from @information' do
-      @video.information.each do |key, value|
-        assert_equal(value, @video.send(key))
+      assert_equal 'youtube', @video.information[:extractor] # Sanity Check
+      assert_equal 'youtube', @video.extractor
+    end
+
+    it 'should return correct formats for things' do
+      assert_instance_of Array, @video.formats
+      assert_instance_of Hash, @video.subtitles
+    end
+
+    it 'should fail if a method does not exist' do
+      assert_raises NoMethodError do
+        @video.i_dont_exist
       end
     end
   end

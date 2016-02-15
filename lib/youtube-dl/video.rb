@@ -34,8 +34,9 @@ module YoutubeDL
     def download
       raise ArgumentError.new('url cannot be nil') if @url.nil?
       raise ArgumentError.new('url cannot be empty') if @url.empty?
+
       @download_options = YoutubeDL::Options.new(runner_options)
-      @last_download_output = YoutubeDL::Runner.new(url, @download_options).run
+      set_information_from_json(YoutubeDL::Runner.new(url, @download_options).run)
     end
 
     alias_method :get, :download
@@ -44,28 +45,20 @@ module YoutubeDL
     #
     # @return [String] Filename downloaded to
     def filename
-      @filename ||= YoutubeDL::Output.new(@last_download_output).filename
+      @information._filename
     end
 
-    # attr_reader for metadata
-    #
-    # @return [Hash] metadata information
     def information
-      @information ||= get_information
+      @information || grab_information_without_download
     end
 
-    # Method missing for pulling metadata from @information
-    #
-    # @param method [Symbol] method name
-    # @param args [Array] list of arguments passed
-    # @param block [Proc] implicit block given
-    # @return [Object] the value of method in the metadata store
     def method_missing(method, *args, &block)
-      get_information unless @information
-      if @information.has_key? method
-        @information.fetch(method)
-      else
+      value = information.send(method, *args, &block)
+      
+      if value.nil?
         super
+      else
+        value
       end
     end
 
@@ -75,21 +68,17 @@ module YoutubeDL
     def runner_options
       {
         color: false,
-        progress: false
+        progress: false,
+        print_json: true
       }.merge(@options)
     end
 
-    # Get information about the video
-    def get_information
-      # Not using symbolize_names since we have some special keys.
-      raw_information = JSON.parse(cocaine_line("--print-json #{quoted(url)}").run)
+    def set_information_from_json(json)
+      @information = OpenStruct.new(JSON.parse(json))
+    end
 
-      @information = symbolize_json(raw_information)
-      @information.each_key do |key|
-        self.class.send(:define_method, key) do
-          @information.fetch(key)
-        end unless self.class.instance_methods(false).include? key
-      end
+    def grab_information_without_download
+      set_information_from_json(YoutubeDL::Runner.new(url, runner_options.merge({skip_download: true})).run)
     end
   end
 end
