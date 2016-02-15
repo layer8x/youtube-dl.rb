@@ -34,35 +34,60 @@ module YoutubeDL
     def download
       raise ArgumentError.new('url cannot be nil') if @url.nil?
       raise ArgumentError.new('url cannot be empty') if @url.empty?
+
       @download_options = YoutubeDL::Options.new(runner_options)
-      @last_download_output = YoutubeDL::Runner.new(url, @download_options).run
+      set_information_from_json(YoutubeDL::Runner.new(url, @download_options).run)
     end
 
     alias_method :get, :download
 
-    # Returns a list of supported formats for the video in the form of
-    # [{:format_code => '000', :extension => 'avi', :resolution => '320x240', :note => 'More details about the format'}]
-    #
-    # @return [Array] Format list
-    def formats
-      @formats ||= YoutubeDL::Output.new(cocaine_line("--list-formats #{quoted(url)}").run).supported_formats
-    end
-
-    # Parses the last downloaded output for a filename and returns it.
+    # Returns the expected filename
     #
     # @return [String] Filename downloaded to
     def filename
-      @filename ||= YoutubeDL::Output.new(@last_download_output).filename
+      @information._filename
     end
 
-    private
+    # Metadata information for the video, gotten from --print-json
+    #
+    # @return [OpenStruct] information
+    def information
+      @information || grab_information_without_download
+    end
+
+    # Redirect methods for information getting
+    #
+    # @param method [Symbol] method name
+    # @param args [Array] method arguments
+    # @param block [Proc] explict block
+    # @return [Object] The value from @information
+    def method_missing(method, *args, &block)
+      value = information.send(method, *args, &block)
+
+      if value.nil?
+        super
+      else
+        value
+      end
+    end
+
+  private
 
     # Add in other default options here.
     def runner_options
       {
         color: false,
-        progress: false
+        progress: false,
+        print_json: true
       }.merge(@options)
+    end
+
+    def set_information_from_json(json) # :nodoc:
+      @information = OpenStruct.new(JSON.parse(json))
+    end
+
+    def grab_information_without_download # :nodoc:
+      set_information_from_json(YoutubeDL::Runner.new(url, runner_options.merge({skip_download: true})).run)
     end
   end
 end

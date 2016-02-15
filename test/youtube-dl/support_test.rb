@@ -30,7 +30,7 @@ describe YoutubeDL::Support do
     end
 
     it 'should not have a newline char in the executable_path' do
-      assert_match /youtube-dl\z/, @klass.executable_path
+      assert_match(/youtube-dl\z/, @klass.executable_path)
     end
   end
 

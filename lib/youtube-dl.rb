@@ -1,4 +1,6 @@
 require 'cocaine'
+require 'json'
+require 'ostruct'
 
 require 'youtube-dl/version'
 require 'youtube-dl/support'

@@ -66,39 +66,6 @@ describe YoutubeDL::Video do
     end
   end
 
-  describe '#formats' do
-    before do
-      @formats = @video.formats
-    end
-
-    it 'should be an Array' do
-      assert_instance_of Array, @formats
-    end
-
-    it 'should be an Array of Hashes' do
-      @formats.each do |f|
-        assert_instance_of Hash, f
-      end
-    end
-
-    it 'should have a hash size of 4' do
-      assert_equal 4, @formats.first.size
-    end
-
-    it 'should include the correct information' do
-      [:format_code, :resolution, :extension, :note].each do |key|
-        assert_includes @formats.first, key
-        assert_includes @formats.last, key
-      end
-    end
-
-    it 'should not have any whitespace in the notes' do
-      @formats.each do |format|
-        assert_nil format[:note].strip!
-      end
-    end
-  end
-
   describe '#filename' do
     before do
       @video.options.configure do |c|
@@ -111,8 +78,24 @@ describe YoutubeDL::Video do
       assert_equal TEST_FILENAME, @video.filename
     end
 
+    it 'should be able to be predicted' do
+      predicted_filename = @video.information[:_filename]
+      @video.download
+      assert_equal predicted_filename, @video.filename
+    end
+
+    it 'should not return previously predicted filename' do
+      predicted_filename = @video.information[:_filename]
+      @video.configure do |c|
+        c.output = "#{TEST_FILENAME}.2"
+      end
+      @video.download
+      refute_equal @video.filename, predicted_filename
+    end
+
     # Broken on Travis. Output test should be fine.
     # it 'should give the correct filename when run through ffmpeg' do
+    #   skip if travis_ci?
     #   @video.configure do |c|
     #     c.output = 'nope-%(id)s.%(ext)s'
     #     c.extract_audio = true
@@ -121,5 +104,33 @@ describe YoutubeDL::Video do
     #   @video.download
     #   assert_equal "nope-#{TEST_ID}.mp3", @video.filename
     # end
+  end
+
+  describe '#information' do
+    before do
+      @information = @video.information
+    end
+
+    it 'should be an OpenStruct' do
+      assert_instance_of OpenStruct, @information
+    end
+  end
+
+  describe '#method_missing' do
+    it 'should pull values from @information' do
+      assert_equal 'youtube', @video.information[:extractor] # Sanity Check
+      assert_equal 'youtube', @video.extractor
+    end
+
+    it 'should return correct formats for things' do
+      assert_instance_of Array, @video.formats
+      assert_instance_of Hash, @video.subtitles
+    end
+
+    it 'should fail if a method does not exist' do
+      assert_raises NoMethodError do
+        @video.i_dont_exist
+      end
+    end
   end
 end
