@@ -41,20 +41,29 @@ module YoutubeDL
 
     alias_method :get, :download
 
-    # Parses the last downloaded output for a filename and returns it.
+    # Returns the expected filename
     #
     # @return [String] Filename downloaded to
     def filename
       @information._filename
     end
 
+    # Metadata information for the video, gotten from --print-json
+    #
+    # @return [OpenStruct] information
     def information
       @information || grab_information_without_download
     end
 
+    # Redirect methods for information getting
+    #
+    # @param method [Symbol] method name
+    # @param args [Array] method arguments
+    # @param block [Proc] explict block
+    # @return [Object] The value from @information
     def method_missing(method, *args, &block)
       value = information.send(method, *args, &block)
-      
+
       if value.nil?
         super
       else
@@ -73,11 +82,11 @@ module YoutubeDL
       }.merge(@options)
     end
 
-    def set_information_from_json(json)
+    def set_information_from_json(json) # :nodoc:
       @information = OpenStruct.new(JSON.parse(json))
     end
 
-    def grab_information_without_download
+    def grab_information_without_download # :nodoc:
       set_information_from_json(YoutubeDL::Runner.new(url, runner_options.merge({skip_download: true})).run)
     end
   end
