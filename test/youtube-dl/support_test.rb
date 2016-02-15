@@ -30,7 +30,7 @@ describe YoutubeDL::Support do
     end
 
     it 'should not have a newline char in the executable_path' do
-      assert_match /youtube-dl\z/, @klass.executable_path
+      assert_match(/youtube-dl\z/, @klass.executable_path)
     end
   end
 
@@ -70,7 +70,7 @@ describe YoutubeDL::Support do
     it 'should not symbolize capitalized keys' do
       original = {"No-Man" => "don't capitalize this plz", "but" => "Do capitalize this"}
       expected = {"No-Man" => "don't capitalize this plz", :but => "Do capitalize this"}
-      
+
       assert_equal(expected, @klass.symbolize_json(original))
     end
   end
