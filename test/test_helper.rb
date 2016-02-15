@@ -31,6 +31,10 @@ def remove_downloaded_files
   end
 end
 
+def travis_ci?
+  !!ENV['TRAVIS']
+end
+
 def fixture(*keys)
   @fixtures ||= YAML.load(File.read(File.join(File.dirname(__FILE__), 'fixtures.yml')))
 
