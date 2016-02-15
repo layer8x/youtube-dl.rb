@@ -5,7 +5,6 @@ require 'ostruct'
 require 'youtube-dl/version'
 require 'youtube-dl/support'
 require 'youtube-dl/options'
-require 'youtube-dl/output'
 require 'youtube-dl/runner'
 require 'youtube-dl/video'
 
