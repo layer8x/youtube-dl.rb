@@ -3,4 +3,3 @@ module YoutubeDL
   # "(semver)(pre-release)(binary-version)"
   VERSION = '0.2.5.2016.02.10'
 end
-d
