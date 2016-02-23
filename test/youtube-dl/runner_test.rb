@@ -27,7 +27,7 @@ describe YoutubeDL::Runner do
     end
 
     it 'should not have a newline char in the executable_path' do
-      assert_match /youtube-dl\z/, @runner.executable_path
+      assert_match(/youtube-dl\z/, @runner.executable_path)
     end
   end
 
@@ -51,17 +51,17 @@ describe YoutubeDL::Runner do
     it 'should handle true boolean values' do
       @runner.options.truthy_value = true
 
-      assert_match /youtube-dl .*--truthy-value\s--|\"http.*/, @runner.to_command
+      assert_match(/youtube-dl .*--truthy-value\s--|\"http.*/, @runner.to_command)
     end
 
     it 'should handle false boolean values' do
       @runner.options.false_value = false
 
-      assert_match /youtube-dl .*--no-false-value\s--|\"http.*/, @runner.to_command
+      assert_match(/youtube-dl .*--no-false-value\s--|\"http.*/, @runner.to_command)
     end
 
     it 'should not have newline char in to_command' do
-      assert_match /youtube-dl\s/, @runner.to_command
+      assert_match(/youtube-dl\s/, @runner.to_command)
     end
   end
 
