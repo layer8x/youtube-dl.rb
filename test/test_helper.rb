@@ -34,4 +34,4 @@ end
 def travis_ci?
   !!ENV['TRAVIS']
 end
-Bundler.require(:development) if defined?(Bundler) && !travis_ci?
+Bundler.require(:extras) if defined?(Bundler) && !travis_ci?
