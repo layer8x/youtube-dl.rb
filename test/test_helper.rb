@@ -12,10 +12,9 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'purdytest' # minitest-colorize is broken in minitest version 5
-require 'pry'
-require 'pry-byebug'
 require 'fileutils'
 require 'yaml'
+require 'bundler/setup'
 
 require 'youtube-dl'
 
@@ -35,3 +34,4 @@ end
 def travis_ci?
   !!ENV['TRAVIS']
 end
+Bundler.require(:development) if defined?(Bundler) && !travis_ci?
