@@ -84,8 +84,15 @@ describe YoutubeDL::Video do
       assert_equal predicted_filename, @video.filename
     end
 
-    it 'should not return previously predicted filename' do
-      predicted_filename = @video.information[:_filename]
+    it 'should return predicted filename before download' do
+      predicted_filename = @video.filename
+      assert_equal @video.information[:_filename], predicted_filename # Sanity check
+      @video.download
+      assert_equal predicted_filename, @video.filename
+    end
+
+    it 'should not return previously predicted filename after editing the options' do
+      predicted_filename = @video.filename
       @video.configure do |c|
         c.output = "#{TEST_FILENAME}.2"
       end
