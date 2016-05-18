@@ -127,6 +127,27 @@ describe YoutubeDL::Options do
     end
   end
 
+  describe '#with' do
+    let(:addon_pair) { {secondary_key: 'secondary value'} }
+
+    before do
+      @options.store.merge! example_pair
+    end
+
+    it 'should merge @store and given hash' do
+      assert_equal example_pair.merge(addon_pair), @options.with(addon_pair).to_h
+    end
+
+    it 'should not affect @store directly' do
+      @options.with(addon_pair)
+      assert_equal example_pair, @options.store
+    end
+
+    it 'should not include banned keys' do
+      refute_includes @options.with(banned_pair).to_h, :banned_key
+    end
+  end
+
   describe '#method_missing' do
     it 'should be able to set options with method_missing' do
       @options.test = true

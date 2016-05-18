@@ -81,6 +81,13 @@ module YoutubeDL
       @store[key.to_sym] = value
     end
 
+    def with(hash)
+      merged = Options.new(@store.merge(hash.to_h))
+      merged.banned_keys = @banned_keys
+      merged.send(:remove_banned)
+      merged
+    end
+
     # Option getting and setting using ghost methods
     #
     # @param method [Symbol] method name
