@@ -4,6 +4,9 @@ module YoutubeDL
     # @return [Hash] key value storage object
     attr_accessor :store
 
+    # @return [Array] array of keys that won't be saved to the options store
+    attr_accessor :banned_keys
+
     # Options initializer
     #
     # @param options [Hash] a hash of options
@@ -13,12 +16,15 @@ module YoutubeDL
       else
         @store = options.to_h
       end
+
+      @banned_keys = []
     end
 
     # Returns options as a hash
     #
     # @return [Hash] hash of options
     def to_hash
+      remove_banned
       @store
     end
     alias_method :to_h, :to_hash
@@ -50,6 +56,8 @@ module YoutubeDL
     # @yield [config] self
     def configure
       yield(self) if block_given?
+      remove_banned
+      self
     end
 
     # Get option with brackets syntax
@@ -57,6 +65,8 @@ module YoutubeDL
     # @param key [Object] key
     # @return [Object] value
     def [](key)
+      remove_banned
+      return nil if banned? key
       @store[key.to_sym]
     end
 
@@ -66,6 +76,8 @@ module YoutubeDL
     # @param value [Object] value
     # @return [Object] whatever Hash#= returns
     def []=(key, value)
+      remove_banned
+      return nil if banned? key
       @store[key.to_sym] = value
     end
 
@@ -76,10 +88,13 @@ module YoutubeDL
     # @param block [Proc] implicit block given
     # @return [Object] the value of method in the options store
     def method_missing(method, *args, &_block)
+      remove_banned
       if method.to_s.include? '='
         method = method.to_s.tr('=', '').to_sym
+        return nil if banned? method
         @store[method] = args.first
       else
+        return nil if banned? method
         @store[method]
       end
     end
@@ -120,7 +135,15 @@ module YoutubeDL
       safe_copy
     end
 
-    private
+    # Check if key is a banned key
+    #
+    # @param key [Object] key to check
+    # @return [Boolean] true if key is banned, false if not.
+    def banned?(key)
+      @banned_keys.include? key
+    end
+
+  private
 
     # Helper function to convert option keys into command-line-friendly parameters
     #
@@ -128,6 +151,11 @@ module YoutubeDL
     # @return [String] paramized key
     def paramize(key)
       key.to_s.tr('_', '-')
+    end
+
+    # Helper to remove banned keys from store
+    def remove_banned
+      @store.delete_if { |key, value| banned? key }
     end
   end
 end
