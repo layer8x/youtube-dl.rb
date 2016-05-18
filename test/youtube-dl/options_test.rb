@@ -1,8 +1,12 @@
 require_relative '../test_helper'
 
 describe YoutubeDL::Options do
+  let(:example_pair) { {parent_key: 'parent value'} }
+  let(:banned_pair) { {banned_key: 'Outlaw Country! Whoo!'} }
+
   before do
     @options = YoutubeDL::Options.new
+    @options.banned_keys.push :banned_key
   end
 
   describe '#initialize' do
@@ -36,6 +40,11 @@ describe YoutubeDL::Options do
 
     it 'should be equal to store' do
       assert_equal @options.store, @options.to_hash
+    end
+
+    it 'should not include banned keys' do
+      @options.store.merge! banned_pair
+      refute_includes @options.to_h, :banned_key
     end
   end
 
@@ -81,6 +90,15 @@ describe YoutubeDL::Options do
       assert_equal opts.store[:parent], 'value'
       assert_equal opts.store[:child], 'vlaue'
     end
+
+    it 'should remove any banned keys automatically' do
+      @options.configure do |c|
+        c.parent_key = 'parent value'
+        c.banned_key = 'nope'
+      end
+
+      assert_equal example_pair, @options.store
+    end
   end
 
   describe '#[], #[]==' do
@@ -97,6 +115,37 @@ describe YoutubeDL::Options do
         assert @options.store.keys.include?(d), "keys not symbolizing automatically: #{d}"
       end
     end
+
+    it 'should remove any banned keys automatically' do
+      @options[:banned_key] = 'nope'
+      refute_includes @options.store, :banned_key
+    end
+
+    it 'should not return any banned keys' do
+      @options.store.merge! banned_pair
+      assert_nil @options[:banned_key]
+    end
+  end
+
+  describe '#with' do
+    let(:addon_pair) { {secondary_key: 'secondary value'} }
+
+    before do
+      @options.store.merge! example_pair
+    end
+
+    it 'should merge @store and given hash' do
+      assert_equal example_pair.merge(addon_pair), @options.with(addon_pair).to_h
+    end
+
+    it 'should not affect @store directly' do
+      @options.with(addon_pair)
+      assert_equal example_pair, @options.store
+    end
+
+    it 'should not include banned keys' do
+      refute_includes @options.with(banned_pair).to_h, :banned_key
+    end
   end
 
   describe '#method_missing' do
@@ -110,6 +159,16 @@ describe YoutubeDL::Options do
       @options.store[:walrus] = 'haswalrus'
 
       assert @options.walrus == 'haswalrus'
+    end
+
+    it 'should remove any banned keys automatically' do
+      @options.banned_key = 'nope'
+      refute_includes @options.store, :banned_key
+    end
+
+    it 'should not return any banned keys' do
+      @options.store.merge! banned_pair
+      assert_nil @options.banned_key
     end
   end
 
@@ -140,6 +199,16 @@ describe YoutubeDL::Options do
     it 'should return instance of Options when calling sanitize_keys' do
       @options.store['some-key'] = "some_value"
       assert_instance_of YoutubeDL::Options, @options.sanitize_keys
+    end
+  end
+
+  describe '#banned?' do
+    it 'should return true for a banned key' do
+      assert @options.banned?(:banned_key), "Key :banned_key was not banned"
+    end
+
+    it 'should return false for a not banned key' do
+      refute @options.banned?(:not_banned_key), "Key :not_banned_key was banned"
     end
   end
 end

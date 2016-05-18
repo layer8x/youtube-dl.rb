@@ -125,6 +125,15 @@ describe YoutubeDL::Video do
     it 'should be an OpenStruct' do
       assert_instance_of OpenStruct, @information
     end
+
+    it 'does not cause unexpected behavior when get_filename is true' do
+      @video.options.get_filename = true
+
+      # Test will error out if JSON::ParserError is raised.
+      assert_silent do
+        @video.download
+      end
+    end
   end
 
   describe '#method_missing' do
