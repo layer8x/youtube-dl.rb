@@ -45,7 +45,7 @@ module YoutubeDL
     #
     # @return [String] Filename downloaded to
     def filename
-      @information._filename
+      self._filename
     end
 
     # Metadata information for the video, gotten from --print-json
