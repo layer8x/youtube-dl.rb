@@ -122,8 +122,12 @@ describe YoutubeDL::Video do
       @information = @video.information
     end
 
-    it 'should be an OpenStruct' do
-      assert_instance_of OpenStruct, @information
+    it 'should be a Hash' do
+      assert_instance_of Hash, @information
+    end
+
+    it 'should not be empty' do
+      refute_empty @information
     end
 
     it 'does not cause unexpected behavior when get_filename is true' do

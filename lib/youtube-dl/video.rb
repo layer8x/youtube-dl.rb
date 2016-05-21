@@ -62,7 +62,13 @@ module YoutubeDL
     # @param block [Proc] explict block
     # @return [Object] The value from @information
     def method_missing(method, *args, &block)
-      value = information.send(method, *args, &block)
+      value =
+        if method.to_s.include? '='
+          method = method.to_s.tr('=', '').to_sym
+          information[method] = args.first
+        else
+          information[method]
+        end
 
       if value.nil?
         super
@@ -93,7 +99,7 @@ module YoutubeDL
     end
 
     def set_information_from_json(json) # :nodoc:
-      @information = OpenStruct.new(JSON.parse(json))
+      @information = JSON.parse(json, symbolize_names: true)
     end
 
     def grab_information_without_download # :nodoc:
