@@ -6,12 +6,12 @@ bundler_args: --without extras
 
 rvm:
 - 2.0.0 # Too old stable
-- 2.1.8 # Old stable
-- 2.2.4 # Previous Stable
-- 2.3.0 # Current stable
+- 2.1.9 # Old stable
+- 2.2.5 # Previous Stable
+- 2.3.1 # Current stable
 - ruby-head # MRI head
 - jruby # JRuby RVM default
-- jruby-9.0.4.0 # JRuby 9k series
+- jruby-9.1.2.0 # JRuby 9k series
 - jruby-head # JRuby Head
 - rbx-2 # Rubinius stable
 
