@@ -84,8 +84,15 @@ describe YoutubeDL::Video do
       assert_equal predicted_filename, @video.filename
     end
 
-    it 'should not return previously predicted filename' do
-      predicted_filename = @video.information[:_filename]
+    it 'should return predicted filename before download' do
+      predicted_filename = @video.filename
+      assert_equal @video.information[:_filename], predicted_filename # Sanity check
+      @video.download
+      assert_equal predicted_filename, @video.filename
+    end
+
+    it 'should not return previously predicted filename after editing the options' do
+      predicted_filename = @video.filename
       @video.configure do |c|
         c.output = "#{TEST_FILENAME}.2"
       end
@@ -93,17 +100,21 @@ describe YoutubeDL::Video do
       refute_equal @video.filename, predicted_filename
     end
 
-    # Broken on Travis. Output test should be fine.
-    # it 'should give the correct filename when run through ffmpeg' do
-    #   skip if travis_ci?
-    #   @video.configure do |c|
-    #     c.output = 'nope-%(id)s.%(ext)s'
-    #     c.extract_audio = true
-    #     c.audio_format = 'mp3'
-    #   end
-    #   @video.download
-    #   assert_equal "nope-#{TEST_ID}.mp3", @video.filename
-    # end
+    # Broken due to how YoutubeDL::Video handles the filename
+    # In older versions it parsed the command output looking for the filename,
+    # But in more recent versions it gets the information from --print-json therefore
+    # youtube-dl is at fault for not returning the correct filename.
+    it 'should give the correct filename when run through ffmpeg' do
+      skip #if travis_ci?
+      @video.configure do |c|
+        c.output = 'nope-%(id)s.%(ext)s'
+        c.extract_audio = true
+        c.audio_format = 'mp3'
+        c.get_filename = true
+      end
+      @video.download
+      assert_equal "nope-#{TEST_ID}.mp3", @video.filename
+    end
   end
 
   describe '#information' do
@@ -111,8 +122,21 @@ describe YoutubeDL::Video do
       @information = @video.information
     end
 
-    it 'should be an OpenStruct' do
-      assert_instance_of OpenStruct, @information
+    it 'should be a Hash' do
+      assert_instance_of Hash, @information
+    end
+
+    it 'should not be empty' do
+      refute_empty @information
+    end
+
+    it 'does not cause unexpected behavior when get_filename is true' do
+      @video.options.get_filename = true
+
+      # Test will error out if JSON::ParserError is raised.
+      assert_silent do
+        @video.download
+      end
     end
   end
 

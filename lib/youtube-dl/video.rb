@@ -27,7 +27,8 @@ module YoutubeDL
     # @param options [Hash] Options to populate the everything with
     def initialize(url, options = {})
       @url = url
-      @options = YoutubeDL::Options.new(options)
+      @options = YoutubeDL::Options.new(options.merge(default_options))
+      @options.banned_keys = banned_keys
     end
 
     # Download the video.
@@ -35,8 +36,7 @@ module YoutubeDL
       raise ArgumentError.new('url cannot be nil') if @url.nil?
       raise ArgumentError.new('url cannot be empty') if @url.empty?
 
-      @download_options = YoutubeDL::Options.new(runner_options)
-      set_information_from_json(YoutubeDL::Runner.new(url, @download_options).run)
+      set_information_from_json(YoutubeDL::Runner.new(url, runner_options).run)
     end
 
     alias_method :get, :download
@@ -45,7 +45,7 @@ module YoutubeDL
     #
     # @return [String] Filename downloaded to
     def filename
-      @information._filename
+      self._filename
     end
 
     # Metadata information for the video, gotten from --print-json
@@ -62,7 +62,13 @@ module YoutubeDL
     # @param block [Proc] explict block
     # @return [Object] The value from @information
     def method_missing(method, *args, &block)
-      value = information.send(method, *args, &block)
+      value =
+        if method.to_s.include? '='
+          method = method.to_s.tr('=', '').to_sym
+          information[method] = args.first
+        else
+          information[method]
+        end
 
       if value.nil?
         super
@@ -74,20 +80,30 @@ module YoutubeDL
   private
 
     # Add in other default options here.
-    def runner_options
+    def default_options
       {
         color: false,
         progress: false,
         print_json: true
-      }.merge(@options)
+      }
+    end
+
+    def banned_keys
+      [
+        :get_filename
+      ]
+    end
+
+    def runner_options
+      YoutubeDL::Options.new(@options.to_h.merge(default_options))
     end
 
     def set_information_from_json(json) # :nodoc:
-      @information = OpenStruct.new(JSON.parse(json))
+      @information = JSON.parse(json, symbolize_names: true)
     end
 
     def grab_information_without_download # :nodoc:
-      set_information_from_json(YoutubeDL::Runner.new(url, runner_options.merge({skip_download: true})).run)
+      set_information_from_json(YoutubeDL::Runner.new(url, runner_options.with({skip_download: true})).run)
     end
   end
 end
