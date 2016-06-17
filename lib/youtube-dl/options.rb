@@ -81,6 +81,11 @@ module YoutubeDL
       @store[key.to_sym] = value
     end
 
+    # Merge options with given hash, removing banned keys, and returning a
+    # new instance of Options.
+    #
+    # @param hash [Hash] Hash to merge options with
+    # @return [YoutubeDL::Options] Merged Options instance
     def with(hash)
       merged = Options.new(@store.merge(hash.to_h))
       merged.banned_keys = @banned_keys
