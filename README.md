@@ -9,7 +9,7 @@ Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
 [![Inline docs](http://inch-ci.org/github/layer8x/youtube-dl.rb.svg?branch=master)](http://inch-ci.org/github/layer8x/youtube-dl.rb)
 [![Dependency Status](https://gemnasium.com/layer8x/youtube-dl.rb.svg)](https://gemnasium.com/layer8x/youtube-dl.rb)
 
-[![Build history for master branch](https://buildstats.info/travisci/chart/layer8x/youtube-dl.rb?branch=master&buildCount=50)]
+[![Build history for master branch](https://buildstats.info/travisci/chart/layer8x/youtube-dl.rb?branch=master&buildCount=50)](https://travis-ci.org/layer8x/youtube-dl.rb/builds)
 [![Stories in Ready](https://badge.waffle.io/layer8x/youtube-dl.rb.svg?label=ready&title=Ready)](http://waffle.io/layer8x/youtube-dl.rb)
 
 
