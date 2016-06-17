@@ -62,13 +62,7 @@ module YoutubeDL
     # @param block [Proc] explict block
     # @return [Object] The value from @information
     def method_missing(method, *args, &block)
-      value =
-        if method.to_s.include? '='
-          method = method.to_s.tr('=', '').to_sym
-          information[method] = args.first
-        else
-          information[method]
-        end
+      value = information[method]
 
       if value.nil?
         super
