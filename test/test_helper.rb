@@ -22,7 +22,7 @@ TEST_ID = "gvdf5n-zI14"
 TEST_URL = "https://www.youtube.com/watch?feature=endscreen&v=gvdf5n-zI14"
 TEST_URL2 = "https://www.youtube.com/watch?v=Mt0PUjh-nDM"
 TEST_FILENAME = "nope.avi.mp4"
-TEST_FORMAT = "5"
+TEST_FORMAT = "17"
 TEST_GLOB = "nope*"
 
 def remove_downloaded_files
