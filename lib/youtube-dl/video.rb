@@ -74,6 +74,7 @@ module YoutubeDL
   private
 
     # Add in other default options here.
+    # TODO: Move to class constant
     def default_options
       {
         color: false,
@@ -82,6 +83,7 @@ module YoutubeDL
       }
     end
 
+    # TODO: Move to class constant
     def banned_keys
       [
         :get_url,
