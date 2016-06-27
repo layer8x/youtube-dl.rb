@@ -25,6 +25,12 @@ TEST_FILENAME = "nope.avi.mp4"
 TEST_FORMAT = "17"
 TEST_GLOB = "nope*"
 
+module Minitest::Spec::DSL
+  def xit(desc = "anonymous", &block)
+    it(desc) { skip "(pending)" }
+  end
+end
+
 def remove_downloaded_files
   Dir.glob("**/*nope*").each do |nope|
     File.delete(nope)
