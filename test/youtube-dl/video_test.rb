@@ -140,6 +140,12 @@ describe YoutubeDL::Video do
     end
   end
 
+  describe '#metadata' do
+    it 'is the same as #information' do
+      assert_equal @video.information, @video.metadata
+    end
+  end
+
   describe '#method_missing' do
     it 'should pull values from @information' do
       assert_equal 'youtube', @video.information[:extractor] # Sanity Check

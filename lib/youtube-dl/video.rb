@@ -55,6 +55,8 @@ module YoutubeDL
       @information || grab_information_without_download
     end
 
+    alias_method :metadata, :information
+
     # Redirect methods for information getting
     #
     # @param method [Symbol] method name
