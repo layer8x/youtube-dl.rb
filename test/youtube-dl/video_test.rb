@@ -64,6 +64,12 @@ describe YoutubeDL::Video do
         YoutubeDL::Video.new('').download
       end
     end
+
+    it 'should not fail if a playlist has an unaccessible video' do
+      assert_silent do
+        YoutubeDL::Video.new(TEST_PLAYLIST_URL).download
+      end
+    end
   end
 
   describe '#filename' do
