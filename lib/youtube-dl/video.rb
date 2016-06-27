@@ -62,12 +62,7 @@ module YoutubeDL
     # @param block [Proc] explict block
     # @return [Object] The value from @information
     def method_missing(method, *args, &block)
-      value =
-        if information.is_a?(Array)
-          information.first[method]
-        else
-          information[method]
-        end
+      value = information[method]
 
       if value.nil?
         super
@@ -106,14 +101,7 @@ module YoutubeDL
     end
 
     def set_information_from_json(json) # :nodoc:
-      @information =
-        if (json.include?("\n"))
-          json.split("\n").collect do |root_node|
-            JSON.parse(root_node, symbolize_names: true)
-          end
-        else
-          JSON.parse(json, symbolize_names: true)
-        end
+      @information = JSON.parse(json, symbolize_names: true)
     end
 
     def grab_information_without_download # :nodoc:
