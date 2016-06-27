@@ -122,7 +122,7 @@ describe YoutubeDL::Video do
       @information = @video.information
     end
 
-    it 'should be a Hash' do
+    xit 'should be a Hash' do
       assert_instance_of Hash, @information
     end
 
