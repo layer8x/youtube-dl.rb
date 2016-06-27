@@ -24,7 +24,7 @@ TEST_URL2 = "https://www.youtube.com/watch?v=Mt0PUjh-nDM"
 TEST_PLAYLIST_URL = "https://www.youtube.com/watch?v=gvdf5n-zI14&list=PLJJ5w2qVsM6wJzh2qFDwFiFJ6HZNumVtY"
 TEST_FILENAME = "nope.avi.mp4"
 TEST_FORMAT = "17"
-TEST_GLOB = "nope*"
+TEST_GLOB = "*.mp4"
 
 module Minitest::Spec::DSL
   def xit(desc = "anonymous", &block)
@@ -33,7 +33,7 @@ module Minitest::Spec::DSL
 end
 
 def remove_downloaded_files
-  Dir.glob("**/*nope*").each do |nope|
+  Dir.glob("**/*.mp4").each do |nope|
     File.delete(nope)
   end
 end
