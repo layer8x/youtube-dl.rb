@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = YoutubeDL::VERSION
   spec.authors       = %w(sapslaj xNightMare)
   spec.email         = ['saps.laj@gmail.com']
-  spec.summary       = 'youtube-dl wrapper for Ruby'
-  spec.description   = 'in the spirit of pygments.rb and MiniMagick, youtube-dl.rb is a command line wrapper for the python script youtube-dl'
+  spec.description   = spec.summary = 'youtube-dl wrapper for Ruby'
   spec.homepage      = 'https://github.com/layer8x/youtube-dl.rb'
   spec.license       = 'MIT'
 
