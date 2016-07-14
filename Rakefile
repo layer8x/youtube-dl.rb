@@ -43,7 +43,7 @@ namespace :binaries do
       f.write(version_file)
     end
 
-    # abort unless system("git commit -a -m 'Updated binaries to #{version}'")
+    abort unless system("git commit -a -m 'Updated binaries to #{version}'")
 
     puts "\e[92mSuccessfully updated binaries to version #{version}\e[0m"
   end
