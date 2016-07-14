@@ -1,6 +1,18 @@
 require_relative './test_helper'
 
 describe YoutubeDL do
+  describe '::VERSION' do
+    let(:version) { YoutubeDL::VERSION }
+
+    it 'is a valid Rubygem version' do
+      assert Gem::Version.correct?(version), "Malformed version number string #{version}"
+    end
+
+    it 'is the correct format' do
+      assert_match(/\d+.\d+.\d+.\d{4}\.\d+\.\d+\.?\d+?/, version)
+    end
+  end
+
   describe '.download' do
     after do
       remove_downloaded_files
