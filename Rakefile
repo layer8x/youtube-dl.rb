@@ -27,11 +27,21 @@ namespace :binaries do
 
   desc 'Auto update binaries and increment version number'
   task :update => :latest do
-    File.open('./lib/youtube-dl/version.rb', 'r+') do |f|
-      version_file = f.read
-      f.rewind
-      f.write version_file.gsub(/\d{4}\.\d+\.\d+\.?\d+?/, `./vendor/bin/youtube-dl --version`.strip)
+    version = `./vendor/bin/youtube-dl --version`.strip
+    version_filename = './lib/youtube-dl/version.rb'
+    version_file = File.read('./lib/youtube-dl/version.rb')
+
+    version_file = version_file.gsub(/\d{4}\.\d+\.\d+\.?\d+?/, version)
+
+    # Syntax Check. Throws a SyntaxError if it doesn't work.
+    RubyVM::InstructionSequence.compile(version_file)
+
+    File.open(version_filename, 'w') do |f|
+      f.write(version_file)
     end
-    abort unless system("git commit -a -m 'Updated binaries to #{`./vendor/bin/youtube-dl --version`.strip}'")
+
+    abort unless system("git commit -a -m 'Updated binaries to #{version}'")
+
+    puts "\e[92mSuccessfully updated binaries to version #{version}\e[0m"
   end
 end
