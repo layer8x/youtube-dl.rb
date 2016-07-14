@@ -25,13 +25,16 @@ namespace :binaries do
     get_binaries(a[:ver])
   end
 
-  desc 'Auto update binaries and increment version number'
-  task :update => :latest do
+  desc 'Update the version in version.rb to the vendor youtube-dl version'
+  task :update_gem_version do
+    # Hack to get the version template from DATA
+    _, data = File.read(__FILE__).split(/^__END__$/, 2)
+
     version = `./vendor/bin/youtube-dl --version`.strip
     version_filename = './lib/youtube-dl/version.rb'
-    version_file = File.read('./lib/youtube-dl/version.rb')
 
-    version_file = version_file.gsub(/\d{4}\.\d+\.\d+\.?\d+?/, version)
+    # Compliled template file
+    version_file = ERB.new(data).result(binding)
 
     # Syntax Check. Throws a SyntaxError if it doesn't work.
     RubyVM::InstructionSequence.compile(version_file)
@@ -40,8 +43,22 @@ namespace :binaries do
       f.write(version_file)
     end
 
-    abort unless system("git commit -a -m 'Updated binaries to #{version}'")
+    # abort unless system("git commit -a -m 'Updated binaries to #{version}'")
 
     puts "\e[92mSuccessfully updated binaries to version #{version}\e[0m"
   end
+
+  desc 'Auto update binaries and increment version number'
+  task :update => [:latest, :update_gem_version]
+end
+
+__END__
+# Version file
+# If you are updating this code, make sure you are updating
+# lib/youtube-dl/version.rb as well as the Rakefile.
+
+module YoutubeDL
+  # Semantic Version as well as the bundled binary version.
+  # "(major).(minor).(teeny).(pre-release).(binary-version)"
+  VERSION = '0.3.1.<%= version %>'.freeze
 end
