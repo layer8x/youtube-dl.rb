@@ -18,7 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', ">= 3.0.0", "< 5.0" # HACK: Temporary fix for #44
   spec.add_dependency 'cocaine', '>=0.5.4'
 
   spec.add_development_dependency 'bundler', '>= 1.6'
