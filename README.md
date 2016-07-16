@@ -12,6 +12,13 @@ Ruby wrapper for [youtube-dl](http://rg3.github.io/youtube-dl/).
 [![Build history for master branch](https://buildstats.info/travisci/chart/layer8x/youtube-dl.rb?branch=master&buildCount=50)](https://travis-ci.org/layer8x/youtube-dl.rb/builds)
 [![Stories in Ready](https://badge.waffle.io/layer8x/youtube-dl.rb.svg?label=ready&title=Ready)](http://waffle.io/layer8x/youtube-dl.rb)
 
+## Gem::InstallError: activesupport requires Ruby version >= 2.2.2.
+
+This gem indirectly depends on ActiveSupport, but ActiveSupport 5 (the latest version) requires Ruby version >= 2.2.2. If you are using a version older than this, add this line to your `Gemfile`:
+
+```
+gem 'activesupport', '< 5.0'
+```
 
 ## Install the gem
 
