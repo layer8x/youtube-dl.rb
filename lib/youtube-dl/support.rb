@@ -10,6 +10,8 @@ module YoutubeDL
       if system_path.nil?
         # TODO: Search vendor bin for executable before just saying it's there.
         vendor_path = File.absolute_path("#{__FILE__}/../../../vendor/bin/#{exe}")
+
+        # TODO: Actually test this.
         File.chmod(775, vendor_path) unless File.executable?(vendor_path) # Make sure vendor binary is executable
         vendor_path
       else
