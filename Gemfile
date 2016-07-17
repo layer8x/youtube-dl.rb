@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :test do
-  gem 'activesupport', '< 5.0'
+  gem 'activesupport', '< 5.0' unless RUBY_VERSION >= '2.2.2'
 end
 
 group :extras do
