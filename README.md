@@ -64,6 +64,8 @@ options = {
 YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", options
 ```
 
+Options passed as `options = {option: true}` or `options = {option: false}` are passed to youtube-dl as `--option` or `--no-option`
+
 ## Contributing
 
 1. Fork it
