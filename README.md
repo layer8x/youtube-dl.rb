@@ -58,7 +58,8 @@ options = {
   username: 'someone',
   password: 'password1',
   rate_limit: '50K',
-  format: :worst
+  format: :worst,
+  continue: false
 }
 
 YoutubeDL.download "https://www.youtube.com/watch?v=gvdf5n-zI14", options
