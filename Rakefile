@@ -43,6 +43,10 @@ namespace :binaries do
       f.write(version_file)
     end
 
+    # Checks new version string to make sure it's not malformed
+    load version_filename
+    Gem::Version.new(YoutubeDL::VERSION)
+
     abort unless system("git commit -a -m 'Updated binaries to #{version}'")
 
     puts "\e[92mSuccessfully updated binaries to version #{version}\e[0m"
