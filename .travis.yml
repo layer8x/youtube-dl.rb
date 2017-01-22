@@ -8,10 +8,11 @@ after_success:
 bundler_args: --without extras
 
 rvm:
-- 2.0.0 # Too old stable
-- 2.1.9 # Old stable
-- 2.2.5 # Previous Stable
-- 2.3.1 # Current stable
+- 2.0.0 # EOL
+- 2.1.10 # Security maintenance
+- 2.2.6 # Too old stable
+- 2.3.3 # Old stable
+- 2.4.0 # Current stable
 - ruby-head # MRI head
 
 cache: bundler
