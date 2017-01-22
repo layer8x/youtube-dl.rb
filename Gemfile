@@ -5,6 +5,8 @@ gemspec
 
 group :test do
   gem 'activesupport', '< 5.0' unless RUBY_VERSION >= '2.2.2'
+  gem "simplecov"
+  gem "codeclimate-test-reporter", "~> 1.0.0"
 end
 
 group :extras do
