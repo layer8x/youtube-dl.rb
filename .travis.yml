@@ -13,17 +13,11 @@ rvm:
 - 2.2.5 # Previous Stable
 - 2.3.1 # Current stable
 - ruby-head # MRI head
-- jruby # JRuby RVM default
-- jruby-9.1.2.0 # JRuby 9k series
-- jruby-head # JRuby Head
-- rbx-2 # Rubinius stable
 
 cache: bundler
 
 matrix:
   allow_failures:
-  - rvm: jruby
-  - rvm: jruby-head
   - rvm: ruby-head
 
 notifications:
