@@ -15,6 +15,7 @@ module YoutubeDL
         video.download
         video
       end
+
       alias_method :get, :download
     end
 
@@ -27,7 +28,7 @@ module YoutubeDL
     # @param options [Hash] Options to populate the everything with
     def initialize(url, options = {})
       @url = url
-      @options = YoutubeDL::Options.new(options.merge(default_options))
+      @options = YoutubeDL::Options.new(default_options.merge(options))
       @options.banned_keys = banned_keys
     end
 
@@ -36,7 +37,14 @@ module YoutubeDL
       raise ArgumentError.new('url cannot be nil') if @url.nil?
       raise ArgumentError.new('url cannot be empty') if @url.empty?
 
-      set_information_from_json(YoutubeDL::Runner.new(url, runner_options).run)
+      options = runner_options.to_hash
+      unless options[:log_file].nil?
+        options.delete(:print_json)
+        YoutubeDL::Runner.new(url, options).run_with_logfile(options.delete(:log_file))
+      else
+        set_information_from_json(YoutubeDL::Runner.new(url, options).run)
+      end
+
     end
 
     alias_method :get, :download
@@ -71,32 +79,32 @@ module YoutubeDL
       end
     end
 
-  private
+    private
 
     # Add in other default options here.
     def default_options
       {
-        color: false,
-        progress: false,
-        print_json: true
+          color: false,
+          print_json: true,
+          newline: true
       }
     end
 
     def banned_keys
       [
-        :get_url,
-        :get_title,
-        :get_id,
-        :get_thumbnail,
-        :get_description,
-        :get_duration,
-        :get_filename,
-        :get_format
+          :get_url,
+          :get_title,
+          :get_id,
+          :get_thumbnail,
+          :get_description,
+          :get_duration,
+          :get_filename,
+          :get_format
       ]
     end
 
     def runner_options
-      YoutubeDL::Options.new(@options.to_h.merge(default_options))
+      YoutubeDL::Options.new(default_options.merge(@options.to_h))
     end
 
     def set_information_from_json(json) # :nodoc:
