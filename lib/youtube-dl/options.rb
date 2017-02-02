@@ -97,7 +97,7 @@ module YoutubeDL
     #
     # @param method [Symbol] method name
     # @param args [Array] list of arguments passed
-    # @param block [Proc] implicit block given
+    # @param _block [Proc] implicit block given
     # @return [Object] the value of method in the options store
     def method_missing(method, *args, &_block)
       remove_banned

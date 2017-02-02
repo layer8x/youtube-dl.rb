@@ -63,6 +63,12 @@ module YoutubeDL
     end
     alias_method :download, :run
 
+    def run_with_logfile(path)
+      options = options_to_commands + " | tee -a #{path}"
+      cocaine_line(options).run(@options.store)
+    end
+    alias_method :download_with_log, :run_with_logfile
+
     # Options configuration.
     # Just aliases to options.configure
     #

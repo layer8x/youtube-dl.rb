@@ -28,6 +28,11 @@ describe YoutubeDL do
       assert File.exist? TEST_FILENAME
     end
 
+    it 'should download videos with log to file' do
+      YoutubeDL.download TEST_URL, log_file: TEST_LOG_FILE
+      assert File.exist? TEST_LOG_FILE
+    end
+
     it 'should download multiple videos without options' do
       YoutubeDL.download [TEST_URL, TEST_URL2]
       assert_equal 2, Dir.glob(TEST_GLOB).length
