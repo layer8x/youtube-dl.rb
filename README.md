@@ -55,6 +55,7 @@ All options available to youtube-dl can be passed to the options hash
 
 ```ruby
 options = {
+  output: 'some_file.mp4',
   username: 'someone',
   password: 'password1',
   rate_limit: '50K',
