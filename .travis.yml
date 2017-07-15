@@ -22,6 +22,7 @@ matrix:
   - rvm: jruby
   - rvm: jruby-head
   - rvm: ruby-head
+  - rvm: rbx-2
 
 notifications:
   slack: layer8x:cvixULdjCINfq7u9Zs1rS0VY
