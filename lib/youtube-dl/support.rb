@@ -19,14 +19,14 @@ module YoutubeDL
 
     alias_method :executable_path_for, :usable_executable_path_for
 
-    # Helper for doing lines of cocaine (initializing, auto executable stuff, etc)
+    # Helper for doing lines of terrapin (initializing, auto executable stuff, etc)
     #
     # @param command [String] command switches to run
     # @param executable_path [String] executable to run. Defaults to usable youtube-dl.
-    # @return [Cocaine::CommandLine] initialized Cocaine instance
-    def cocaine_line(command, executable_path = nil)
+    # @return [Terrapin::CommandLine] initialized Terrapin instance
+    def terrapin_line(command, executable_path = nil)
       executable_path = executable_path_for('youtube-dl') if executable_path.nil?
-      Cocaine::CommandLine.new(executable_path, command)
+      Terrapin::CommandLine.new(executable_path, command)
     end
 
     # Helper to add quotes to beginning and end of a URL or whatever you want....
