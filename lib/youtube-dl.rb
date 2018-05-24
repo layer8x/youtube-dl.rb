@@ -1,4 +1,4 @@
-require 'cocaine'
+require 'terrapin'
 require 'json'
 require 'ostruct'
 
@@ -32,20 +32,20 @@ module YoutubeDL
   #
   # @return [Array] list of extractors
   def extractors
-    @extractors ||= cocaine_line('--list-extractors').run.split("\n")
+    @extractors ||= terrapin_line('--list-extractors').run.split("\n")
   end
 
   # Returns youtube-dl's version
   #
   # @return [String] youtube-dl version
   def binary_version
-    @binary_version ||= cocaine_line('--version').run.strip
+    @binary_version ||= terrapin_line('--version').run.strip
   end
 
   # Returns user agent
   #
   # @return [String] user agent
   def user_agent
-    @user_agent ||= cocaine_line('--dump-user-agent').run.strip
+    @user_agent ||= terrapin_line('--dump-user-agent').run.strip
   end
 end

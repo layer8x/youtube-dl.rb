@@ -32,12 +32,12 @@ describe YoutubeDL::Runner do
   end
 
   describe '#backend_runner=, #backend_runner' do
-    it 'should set cocaine runner' do
-      @runner.backend_runner = Cocaine::CommandLine::BackticksRunner.new
-      assert_instance_of Cocaine::CommandLine::BackticksRunner, @runner.backend_runner
+    it 'should set terrapin runner' do
+      @runner.backend_runner = Terrapin::CommandLine::BackticksRunner.new
+      assert_instance_of Terrapin::CommandLine::BackticksRunner, @runner.backend_runner
 
-      @runner.backend_runner = Cocaine::CommandLine::PopenRunner.new
-      assert_instance_of Cocaine::CommandLine::PopenRunner, @runner.backend_runner
+      @runner.backend_runner = Terrapin::CommandLine::PopenRunner.new
+      assert_instance_of Terrapin::CommandLine::PopenRunner, @runner.backend_runner
     end
   end
 
